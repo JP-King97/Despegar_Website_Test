@@ -22,5 +22,6 @@ public class PurchaseTest extends BaseTest {
         }
         flightsPg.selectRoundTrips();
         flightsPg.enterDepartureLocation("Medellín, Antioquia, Colombia");
+        flightsPg.enterArrivalLocation("Cali, Valle del Cauca, Colombia");
     }
 }
