@@ -6,9 +6,6 @@ import pages.CheckoutPage;
 import pages.FlightsHomePage;
 import pages.FlightsResultPage;
 
-import java.util.Iterator;
-import java.util.Set;
-
 public class PurchaseTest extends BaseTest {
     @Test
     public void testSuccessfulPurchase(){
@@ -35,6 +32,8 @@ public class PurchaseTest extends BaseTest {
         ////////////////////////
         checkoutPg.enterFirstName("Juan Alberto");
         checkoutPg.enterLastName("Gonzalez Garcia");
+        checkoutPg.selectCountry("Colombia");
+
 
     }
 }
