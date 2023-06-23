@@ -1,11 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import java.time.Duration;
 
 public class HomePage {
 
@@ -21,9 +17,9 @@ public class HomePage {
         driver.findElement(service).click();
     }
 
-    public FlightsPage selectFlights(){
+    public FlightsHomePage selectFlights(){
         selectTypeOfServices(flights);
-        return new FlightsPage(driver);
+        return new FlightsHomePage(driver);
     }
 
     ////////////flights frame

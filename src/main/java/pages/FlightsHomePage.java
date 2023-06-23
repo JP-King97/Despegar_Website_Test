@@ -5,20 +5,16 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.LocalDate;
-import java.util.Objects;
-
-public class FlightsPage {
+public class FlightsHomePage {
     private WebDriver driver;
     private final By roundTrip = By.cssSelector("button[class=\"sbox5-3-btn-ghost -lighten rt-sbox5 sbox5-button -white -active -md\"]");
     private final By departureLocation = By.cssSelector("input[placeholder=\"Ingresa desde dónde viajas\"]");
     private final By arrivalLocation = By.cssSelector("input[placeholder=\"Ingresa hacia dónde viajas\"]");
     private final By departureDateBox = By.cssSelector("input[placeholder=\"Ida\"]");
-    //private final By departureDate = By.cssSelector()
-    //div.sbox5-floating-tooltip.sbox5-floating-tooltip-opened
+    private final By arrivalDateBox = By.cssSelector("input[placeholder=\"Vuelta\"]");
+    private final By searchButton = By.cssSelector("div.sbox5-button-container--1X4O8 > button");
 
-
-    public FlightsPage(WebDriver driver) {
+    public FlightsHomePage(WebDriver driver) {
         this.driver=driver;
     }
 
@@ -30,18 +26,38 @@ public class FlightsPage {
         getTypeOfFlights(roundTrip);
     }
 
+    public void closeLoginPopUp(){
+        driver.findElement(By.cssSelector(" div.login-incentive--content > span")).click();
+    }
+    public FlightsResultPage summitSearchInformation(){
+        driver.findElement(searchButton).click();
+        return new  FlightsResultPage(driver);
+    }
+
     public void enterDepartureLocation(String departureLocationName){
+        driver.findElement(departureLocation).click();
         driver.findElement(departureLocation).sendKeys(Keys.CONTROL+"a");
         driver.findElement(departureLocation).sendKeys(Keys.BACK_SPACE);
         driver.findElement(departureLocation).sendKeys(departureLocationName);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         driver.findElement(departureLocation).sendKeys(Keys.ENTER);
     }
 
     public void enterArrivalLocation(String arrivalLocationName){
+        driver.findElement(arrivalLocation).click();
         driver.findElement(arrivalLocation).sendKeys(Keys.CONTROL+"a");
         driver.findElement(arrivalLocation).sendKeys(Keys.BACK_SPACE);
         driver.findElement(arrivalLocation).sendKeys(arrivalLocationName);
-        driver.findElement(departureLocation).sendKeys(Keys.ENTER);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        driver.findElement(arrivalLocation).sendKeys(Keys.ENTER);
     }
 
     /**
@@ -64,21 +80,25 @@ public class FlightsPage {
             }
         }
         driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
+        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
     }
 
 
-   // public void selectArrivalDate(int day, int month, int year){
-   //     driver.findElement(departureDateBox).click();
-   //     String monthName = (driver.findElement(By.cssSelector("div.sbox5-monthgrid-title > div:nth-child(1)")).getAttribute("innerText"));
-   //     int monthNumber = getMonthNumber(monthName);
-   //     System.out.println("Mes: "+monthNumber);
-   //     if (month != monthNumber){
-   //         if(month < monthNumber){
-   //             driver.findElement(By.id("ico-arrow-left")).click();
-   //         }
-   //     }
-//
-   // }
+    public void selectArrivalDate(int day, int month, int year){
+        driver.findElement(arrivalDateBox).click();
+        if(!yearCheck(year)){
+            while(!yearCheck(year)){
+                driver.findElement(By.id("ico-arrow-right")).click();
+            }
+        }
+        if(!monthCheck(month)){
+            while(!monthCheck(month)){
+                driver.findElement(By.cssSelector(" div > a.calendar-arrow-right")).click();
+            }
+        }
+        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
+        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
+    }
 
     private boolean monthCheck(int month){
         String monthName = (driver.findElement(By.cssSelector("div.sbox5-monthgrid-title > div:nth-child(1)")).getAttribute("innerText"));

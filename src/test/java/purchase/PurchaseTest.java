@@ -1,11 +1,9 @@
 package purchase;
 
 import base.BaseTest;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
-import pages.FlightsPage;
-
-import java.time.Duration;
+import pages.FlightsHomePage;
+import pages.FlightsResultPage;
 
 public class PurchaseTest extends BaseTest {
     @Test
@@ -14,15 +12,19 @@ public class PurchaseTest extends BaseTest {
        // homePage.selectDepartureLocation();
        // homePage.selectDestinationLocation();
 
-        FlightsPage flightsPg = homePage.selectFlights();
+        FlightsHomePage flightsPg = homePage.selectFlights();
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        flightsPg.closeLoginPopUp();
         flightsPg.selectRoundTrips();
+        flightsPg.selectDepartureDate(4,10,2023);
+        flightsPg.selectArrivalDate(2,11,2023);
         flightsPg.enterDepartureLocation("Medellín, Antioquia, Colombia");
         flightsPg.enterArrivalLocation("Cali, Valle del Cauca, Colombia");
-        flightsPg.selectDepartureDate(4,10,2023);
+        FlightsResultPage resultPage = flightsPg.summitSearchInformation();
+
     }
 }
