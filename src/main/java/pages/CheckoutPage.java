@@ -24,6 +24,8 @@ public class CheckoutPage {
     private final By cellphoneCountryBox = By.cssSelector("input[id=\"formData.contactData.phones[0].countryCode\"]");
     private final By cellphoneNumberBox = By.cssSelector("input[id=\"formData.contactData.phones[0].number\"]");
     private final By bankChoicesDropdown = By.cssSelector("#card-selector-0");
+    private final By firstNameOnBillBox = By.cssSelector("#invoice-first-name-0");
+    private final By lastNameOnBillBox = By.cssSelector("#invoice-last-name-0");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -178,7 +180,7 @@ public class CheckoutPage {
 
     public void selectFiscalStatus(String fiscalStatus){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)","");
+        js.executeScript("window.scrollBy(0,800)","");
         switch(fiscalStatus){
             case "natural","Natural":
                 driver.findElement(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(1) > label > span > i"));
@@ -191,7 +193,11 @@ public class CheckoutPage {
         }
     }
 
-   // public void enterNameOnBill(String nameOnBill){
-   //     drover
-   // }
+    public void enterFirstNameOnBill(String firstNameOnBill){
+        driver.findElement(firstNameOnBillBox).sendKeys(firstNameOnBill);
+    }
+
+    public void enterLastNameOnBill(String lastNameOnBill){
+        driver.findElement(lastNameOnBillBox).sendKeys(lastNameOnBill);
+    }
 }

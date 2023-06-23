@@ -44,6 +44,8 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.selectPaymentType("PSE");
         checkoutPg.selectBank("Bancolombia");
         checkoutPg.selectFiscalStatus("natural");
+        checkoutPg.enterFirstNameOnBill("Juan Alberto");
+        checkoutPg.enterLastNameOnBill("Gonzalez Garcia");
 
     }
 }
