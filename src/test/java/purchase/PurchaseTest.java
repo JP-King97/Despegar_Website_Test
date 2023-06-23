@@ -16,12 +16,13 @@ public class PurchaseTest extends BaseTest {
 
         FlightsPage flightsPg = homePage.selectFlights();
         try {
-            Thread.sleep(10000);
+            Thread.sleep(6000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         flightsPg.selectRoundTrips();
         flightsPg.enterDepartureLocation("Medellín, Antioquia, Colombia");
         flightsPg.enterArrivalLocation("Cali, Valle del Cauca, Colombia");
+        flightsPg.selectDepartureDate(4,10,2023);
     }
 }

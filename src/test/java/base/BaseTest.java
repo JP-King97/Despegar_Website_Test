@@ -27,6 +27,7 @@ public class BaseTest {
 
        // chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
     }
