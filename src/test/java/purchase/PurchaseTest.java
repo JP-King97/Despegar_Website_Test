@@ -2,6 +2,7 @@ package purchase;
 
 import base.BaseTest;
 import org.testng.annotations.Test;
+import pages.CheckoutPage;
 import pages.FlightsHomePage;
 import pages.FlightsResultPage;
 
@@ -30,7 +31,10 @@ public class PurchaseTest extends BaseTest {
         FlightsResultPage resultPage = flightsPg.summitSearchInformation();
         /////////////////////////////
         resultPage.closePopUpDiscount();
-        resultPage.clickFirstBuyButton();
+        CheckoutPage checkoutPg = resultPage.clickFirstBuyButton();
+        ////////////////////////
+        checkoutPg.enterFirstName("Juan Alberto");
+        checkoutPg.enterLastName("Gonzalez Garcia");
 
     }
 }

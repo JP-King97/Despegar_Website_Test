@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class FlightsResultPage {
     WebDriver driver ;
-    private final By firstBuyButton = By.cssSelector(" div > buy-button > a[class=\"-md eva-3-btn -primary\"]");
+    private final By firstBuyButton = By.cssSelector("a[class=\"-md eva-3-btn -primary\"]");
     private final By popUpCloseButton = By.cssSelector("span[class=\"login-aggressive--button login-aggressive--button-close shifu-3-btn-ghost\"]");
     public FlightsResultPage(WebDriver driver){
         Set<String> allTabs = driver.getWindowHandles();
@@ -46,7 +46,7 @@ public class FlightsResultPage {
 
     private void scrollDown(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,1000)","");
+        js.executeScript("window.scrollBy(0,500)","");
     }
 
 }
