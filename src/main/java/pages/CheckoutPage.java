@@ -23,6 +23,7 @@ public class CheckoutPage {
     private final By phoneNumberType = By.cssSelector("select[id=\"formData.contactData.phones[0].type\"]");
     private final By cellphoneCountryBox = By.cssSelector("input[id=\"formData.contactData.phones[0].countryCode\"]");
     private final By cellphoneNumberBox = By.cssSelector("input[id=\"formData.contactData.phones[0].number\"]");
+    private final By bankChoicesDropdown = By.cssSelector("#card-selector-0");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -167,5 +168,11 @@ public class CheckoutPage {
                 System.out.println("payment method not founded");
                 return pm;
         }
+    }
+
+    public void selectBank(String bank){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)","");
+        driver.findElement(bankChoicesDropdown).sendKeys(bank+Keys.ENTER);
     }
 }

@@ -42,6 +42,7 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.selectPhoneCountry("Colombia");
         checkoutPg.enterPhoneNumber("3196862442");
         checkoutPg.selectPaymentType("PSE");
+        checkoutPg.selectBank("Bancolombia");
 
     }
 }
