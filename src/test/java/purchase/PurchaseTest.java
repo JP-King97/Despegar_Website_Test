@@ -25,6 +25,7 @@ public class PurchaseTest extends BaseTest {
         flightsPg.enterDepartureLocation("Medellín, Antioquia, Colombia");
         flightsPg.enterArrivalLocation("Cali, Valle del Cauca, Colombia");
         FlightsResultPage resultPage = flightsPg.summitSearchInformation();
+        resultPage.closePopUpDiscount();
 
     }
 }
