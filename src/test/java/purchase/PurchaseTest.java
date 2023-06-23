@@ -36,6 +36,7 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterNumberID("Cédula",1027342586);
         checkoutPg.selectDateOfBirth(3,6,1987);
         checkoutPg.selectSex("m");
-
+        checkoutPg.enterEmail("despegar_Selenium_test@gmail.com");
+        checkoutPg.enterEmailConfirmation("despegar_Selenium_test@gmail.com");
     }
 }

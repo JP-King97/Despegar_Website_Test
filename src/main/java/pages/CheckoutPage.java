@@ -18,6 +18,8 @@ public class CheckoutPage {
     private final By yearOfBirth = By.cssSelector("#traveler-birthday-year-0");
     private final By femaleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(1)");
     private final By maleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(2)");
+    private final By emailBox = By.cssSelector("input[id=\"formData.contactData.mainEmailAddress\"]");
+    private final By emailConfirmationBox = By.cssSelector("input[id=\"formData.contactData.repeatMainEmailAddress\"]");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -71,7 +73,18 @@ public class CheckoutPage {
                 System.out.println("Sex option not founded");
                 break;
         }
+    }
 
+    public void enterEmail(String email){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)","");
+        driver.findElement(emailBox).click();
+        driver.findElement(emailBox).sendKeys(email);
+    }
+
+    public void enterEmailConfirmation(String confirmationEmail){
+        driver.findElement(emailConfirmationBox).click();
+        driver.findElement(emailConfirmationBox).sendKeys(confirmationEmail);
     }
 
 
