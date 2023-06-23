@@ -46,6 +46,8 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.selectFiscalStatus("natural");
         checkoutPg.enterFirstNameOnBill("Juan Alberto");
         checkoutPg.enterLastNameOnBill("Gonzalez Garcia");
+        checkoutPg.selectDocumentTypeOnBill("cedula de ciudadania");
+        checkoutPg.enterDocumentNumberOnBill("1027342586");
 
     }
 }

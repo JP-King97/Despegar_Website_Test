@@ -12,7 +12,7 @@ public class CheckoutPage {
     private final By lastNameBox = By.cssSelector("input[class=\"input-tag traveler-last-name ng-untouched ng-pristine ng-invalid\"]");
     private final By countryBox = By.cssSelector("select[class=\"select-tag traveler-nationality ng-untouched ng-pristine ng-valid\"]");
     private final By documentTypeDropdown = By.cssSelector("#traveler-identification-type-0");
-    private final By documentNumber = By.cssSelector("input[class=\"input-tag traveler-identification-number ng-untouched ng-pristine ng-invalid\"]");
+    private final By documentNumberBox = By.cssSelector("input[class=\"input-tag traveler-identification-number ng-untouched ng-pristine ng-invalid\"]");
     private final By dayOfBirth = By.cssSelector("#traveler-birthday-day-0");
     private final By monthOfBirth = By.cssSelector("#traveler-birthday-month-0");
     private final By yearOfBirth = By.cssSelector("#traveler-birthday-year-0");
@@ -26,6 +26,8 @@ public class CheckoutPage {
     private final By bankChoicesDropdown = By.cssSelector("#card-selector-0");
     private final By firstNameOnBillBox = By.cssSelector("#invoice-first-name-0");
     private final By lastNameOnBillBox = By.cssSelector("#invoice-last-name-0");
+    private final By documentTypeOnBillDropdown = By.cssSelector("select[id=\"invoice-fiscal-identification-type-0\"]");
+    private final By documentNumberOnBill = By.cssSelector("input[id=\"invoice-fiscal-identification-number-0\"]");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -56,7 +58,7 @@ public class CheckoutPage {
 
     public void enterNumberID(String documentType,long ID){
         driver.findElement(documentTypeDropdown).sendKeys(documentType);
-        driver.findElement(documentNumber).sendKeys(""+ID+"");
+        driver.findElement(documentNumberBox).sendKeys(""+ID+"");
     }
 
     public void selectDateOfBirth(int day, int month, int year){
@@ -199,5 +201,13 @@ public class CheckoutPage {
 
     public void enterLastNameOnBill(String lastNameOnBill){
         driver.findElement(lastNameOnBillBox).sendKeys(lastNameOnBill);
+    }
+
+    public void selectDocumentTypeOnBill(String documentType){
+        driver.findElement(documentTypeOnBillDropdown).sendKeys(documentType);
+    }
+
+    public void enterDocumentNumberOnBill(String ID){
+        driver.findElement(documentNumberOnBill).sendKeys(ID);
     }
 }
