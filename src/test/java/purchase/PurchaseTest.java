@@ -34,7 +34,7 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterLastName("Gonzalez Garcia");
         checkoutPg.selectCountry("Colombia");
         checkoutPg.enterNumberID("Cédula",1027342586);
-
+        checkoutPg.selectDateOfBirth(3,6,1987);
 
     }
 }

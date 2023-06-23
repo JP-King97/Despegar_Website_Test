@@ -12,8 +12,9 @@ public class CheckoutPage {
     private final By countryBox = By.cssSelector("select[class=\"select-tag traveler-nationality ng-untouched ng-pristine ng-valid\"]");
     private final By documentTypeDropdown = By.cssSelector("#traveler-identification-type-0");
     private final By documentNumber = By.cssSelector("input[class=\"input-tag traveler-identification-number ng-untouched ng-pristine ng-invalid\"]");
-
-
+    private final By dayOfBirth = By.cssSelector("#traveler-birthday-day-0");
+    private final By monthOfBirth = By.cssSelector("#traveler-birthday-month-0");
+    private final By yearOfBirth = By.cssSelector("#traveler-birthday-year-0");
 
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
@@ -48,6 +49,11 @@ public class CheckoutPage {
         driver.findElement(documentNumber).sendKeys(""+ID+"");
     }
 
+    public void selectDateOfBirth(int day, int month, int year){
+        driver.findElement(dayOfBirth).sendKeys(""+day+"");
+        driver.findElement(monthOfBirth).sendKeys(""+month+"");
+        driver.findElement(yearOfBirth).sendKeys(""+year+"");
+    }
 
 
 }
