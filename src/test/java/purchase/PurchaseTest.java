@@ -33,6 +33,7 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterFirstName("Juan Alberto");
         checkoutPg.enterLastName("Gonzalez Garcia");
         checkoutPg.selectCountry("Colombia");
+        checkoutPg.enterNumberID("Cédula",1027342586);
 
 
     }

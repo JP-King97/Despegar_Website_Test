@@ -10,7 +10,10 @@ public class CheckoutPage {
     private final By firstNameBox = By.cssSelector("input[class=\"input-tag traveler-first-name ng-untouched ng-pristine ng-invalid\"]");
     private final By lastNameBox = By.cssSelector("input[class=\"input-tag traveler-last-name ng-untouched ng-pristine ng-invalid\"]");
     private final By countryBox = By.cssSelector("select[class=\"select-tag traveler-nationality ng-untouched ng-pristine ng-valid\"]");
-    private final By documentTypeDropdown = By.cssSelector("#traveler-identification-type-0 > option:nth-child(1)");
+    private final By documentTypeDropdown = By.cssSelector("#traveler-identification-type-0");
+    private final By documentNumber = By.cssSelector("input[class=\"input-tag traveler-identification-number ng-untouched ng-pristine ng-invalid\"]");
+
+
 
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
@@ -39,6 +42,12 @@ public class CheckoutPage {
     public void selectCountry(String country){
         driver.findElement(countryBox).sendKeys(country + Keys.ENTER);
     }
+
+    public void enterNumberID(String documentType,long ID){
+        driver.findElement(documentTypeDropdown).sendKeys(documentType);
+        driver.findElement(documentNumber).sendKeys(""+ID+"");
+    }
+
 
 
 }
