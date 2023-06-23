@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
@@ -15,7 +16,8 @@ public class CheckoutPage {
     private final By dayOfBirth = By.cssSelector("#traveler-birthday-day-0");
     private final By monthOfBirth = By.cssSelector("#traveler-birthday-month-0");
     private final By yearOfBirth = By.cssSelector("#traveler-birthday-year-0");
-
+    private final By femaleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(1)");
+    private final By maleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(2)");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -50,9 +52,26 @@ public class CheckoutPage {
     }
 
     public void selectDateOfBirth(int day, int month, int year){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)","");
         driver.findElement(dayOfBirth).sendKeys(""+day+"");
         driver.findElement(monthOfBirth).sendKeys(""+month+"");
         driver.findElement(yearOfBirth).sendKeys(""+year+"");
+    }
+
+    public void selectSex(String sex){
+        switch(sex){
+            case "m", "M" :
+                driver.findElement(maleCheckBox).click();
+                break;
+            case "f", "F" :
+                driver.findElement(femaleCheckBox).click();
+                break;
+            default:
+                System.out.println("Sex option not founded");
+                break;
+        }
+
     }
 
 
