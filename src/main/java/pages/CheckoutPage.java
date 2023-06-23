@@ -175,4 +175,23 @@ public class CheckoutPage {
         js.executeScript("window.scrollBy(0,400)","");
         driver.findElement(bankChoicesDropdown).sendKeys(bank+Keys.ENTER);
     }
+
+    public void selectFiscalStatus(String fiscalStatus){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)","");
+        switch(fiscalStatus){
+            case "natural","Natural":
+                driver.findElement(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(1) > label > span > i"));
+                break;
+            case "juridica","Juridica":
+                driver.findElement(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(2) > label > span > i"));
+                break;
+            default:
+                System.out.println("fiscal status not found");
+        }
+    }
+
+   // public void enterNameOnBill(String nameOnBill){
+   //     drover
+   // }
 }
