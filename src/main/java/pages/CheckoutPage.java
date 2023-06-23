@@ -20,6 +20,9 @@ public class CheckoutPage {
     private final By maleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(2)");
     private final By emailBox = By.cssSelector("input[id=\"formData.contactData.mainEmailAddress\"]");
     private final By emailConfirmationBox = By.cssSelector("input[id=\"formData.contactData.repeatMainEmailAddress\"]");
+    private final By phoneNumberType = By.cssSelector("select[id=\"formData.contactData.phones[0].type\"]");
+    private final By cellphoneCountryBox = By.cssSelector("input[id=\"formData.contactData.phones[0].countryCode\"]");
+    private final By cellphoneNumberBox = By.cssSelector("input[id=\"formData.contactData.phones[0].number\"]");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -87,5 +90,82 @@ public class CheckoutPage {
         driver.findElement(emailConfirmationBox).sendKeys(confirmationEmail);
     }
 
+    public void selectNumberType(String numberType){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)","");
 
+        switch(numberType){
+            case "Celular","celular":
+                driver.findElement(phoneNumberType).sendKeys("celular");
+                break;
+            case "Particular","particular":
+                driver.findElement(phoneNumberType).sendKeys("particular");
+                break;
+            default:
+                System.out.println("cellphone number type not found");
+        }
+    }
+
+    public void selectPhoneCountry(String cellphoneCountry){
+        driver.findElement(cellphoneCountryBox).sendKeys(cellphoneCountry+Keys.ENTER);
+    }
+
+    public void enterPhoneNumber(String phoneNumber){
+        driver.findElement(cellphoneNumberBox).sendKeys(phoneNumber + Keys.ENTER);
+    }
+
+    public void selectPaymentType(String paymentType){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)","");
+        String ID;
+        switch(paymentType){
+            case "Tarjeta de credito":
+                ID = driver.findElement(By.cssSelector("input[value=\"ONE_CARD_CREDIT\"]")).getAttribute("id");
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                break;
+            case "2 tarjetas de credito":
+                ID = driver.findElement(By.cssSelector("input[value=\"MULTIPLE_CARD\"]")).getAttribute("id");
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                break;
+            case "Su Red":
+                ID = driver.findElement(By.cssSelector("input[value=\"CASH_DEPOSIT_GANAC\"]")).getAttribute("id");
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                break;
+            case "Efecty":
+                ID = driver.findElement(By.cssSelector("input[value=\"CASH_DEPOSIT_EFECTY\"]")).getAttribute("id");
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                break;
+            case "Criptomonedas":
+                ID = driver.findElement(By.cssSelector("input[value=\"CASH_TRANSFER_BNB\"]")).getAttribute("id");
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                break;
+            case "PSE":
+                ID = driver.findElement(By.cssSelector("input[value=\"CASH_TRANSFER_GFCF\"]")).getAttribute("id");
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                break;
+            default:
+                System.out.println("Payment method not found");
+        }
+    }
+
+    private int selectPaymentMethodNumber(String ID){
+        int pm=0;
+        switch(ID){
+            case "payment-method-0":
+                return pm = 1;
+            case "payment-method-1":
+                return pm = 2;
+            case "payment-method-2":
+                return pm = 3;
+            case "payment-method-3":
+                return pm = 4;
+            case "payment-method-4":
+                return pm = 5;
+            case "payment-method-5":
+                return pm = 6;
+            default:
+                System.out.println("payment method not founded");
+                return pm;
+        }
+    }
 }
