@@ -5,6 +5,9 @@ import org.testng.annotations.Test;
 import pages.FlightsHomePage;
 import pages.FlightsResultPage;
 
+import java.util.Iterator;
+import java.util.Set;
+
 public class PurchaseTest extends BaseTest {
     @Test
     public void testSuccessfulPurchase(){
@@ -25,7 +28,9 @@ public class PurchaseTest extends BaseTest {
         flightsPg.enterDepartureLocation("Medellín, Antioquia, Colombia");
         flightsPg.enterArrivalLocation("Cali, Valle del Cauca, Colombia");
         FlightsResultPage resultPage = flightsPg.summitSearchInformation();
+        /////////////////////////////
         resultPage.closePopUpDiscount();
+        resultPage.clickFirstBuyButton();
 
     }
 }
