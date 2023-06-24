@@ -51,7 +51,7 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterDocumentStateOnBill("Antioquia");
         checkoutPg.enterPassengerCityOnBill("Envigado, Antioquia, Colombia");
         checkoutPg.enterPassengerAddressOnBill("Cra 34 #28-31");
-
+        checkoutPg.checkTermsAndConditions();
 
     }
 }

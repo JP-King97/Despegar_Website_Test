@@ -31,6 +31,7 @@ public class CheckoutPage {
     private final By passengerStateOnBill = By.cssSelector("select[id=\"invoice-fiscal-address-state-0\"]");
     private final By passengerCityOnBill = By.cssSelector("input[id=\"invoice-fiscal-address-city-CASH_TRANSFER_GFCF-0\"]");
     private final By passengerAddressOnBill = By.cssSelector("input[class=\"input-tag invoice-fiscal-address-street ng-untouched ng-pristine ng-invalid\"]");
+    private final By termAndConditionsCheckBox = By.cssSelector("i[class=\"checkbox-check eva-3-icon-checkmark -eva-3-mr-sm\"]");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -232,5 +233,11 @@ public class CheckoutPage {
 
     public void enterPassengerAddressOnBill(String address){
         driver.findElement(passengerAddressOnBill).sendKeys(address);
+    }
+
+    public void checkTermsAndConditions(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,800)","");
+        driver.findElement(termAndConditionsCheckBox).click();
     }
 }
