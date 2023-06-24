@@ -46,8 +46,12 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.selectFiscalStatus("natural");
         checkoutPg.enterFirstNameOnBill("Juan Alberto");
         checkoutPg.enterLastNameOnBill("Gonzalez Garcia");
-        checkoutPg.selectDocumentTypeOnBill("cedula de ciudadania");
+        checkoutPg.selectDocumentTypeOnBill("Cédula de ciudadanía");
         checkoutPg.enterDocumentNumberOnBill("1027342586");
+        checkoutPg.enterDocumentStateOnBill("Antioquia");
+        checkoutPg.enterPassengerCityOnBill("Envigado, Antioquia, Colombia");
+        checkoutPg.enterPassengerAddressOnBill("Cra 34 #28-31");
+
 
     }
 }

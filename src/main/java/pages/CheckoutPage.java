@@ -27,7 +27,10 @@ public class CheckoutPage {
     private final By firstNameOnBillBox = By.cssSelector("#invoice-first-name-0");
     private final By lastNameOnBillBox = By.cssSelector("#invoice-last-name-0");
     private final By documentTypeOnBillDropdown = By.cssSelector("select[id=\"invoice-fiscal-identification-type-0\"]");
-    private final By documentNumberOnBill = By.cssSelector("input[id=\"invoice-fiscal-identification-number-0\"]");
+    private final By documentNumberOnBillBox = By.cssSelector("input[id=\"invoice-fiscal-identification-number-0\"]");
+    private final By passengerStateOnBill = By.cssSelector("select[id=\"invoice-fiscal-address-state-0\"]");
+    private final By passengerCityOnBill = By.cssSelector("input[id=\"invoice-fiscal-address-city-CASH_TRANSFER_GFCF-0\"]");
+    private final By passengerAddressOnBill = By.cssSelector("input[class=\"input-tag invoice-fiscal-address-street ng-untouched ng-pristine ng-invalid\"]");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -208,6 +211,26 @@ public class CheckoutPage {
     }
 
     public void enterDocumentNumberOnBill(String ID){
-        driver.findElement(documentNumberOnBill).sendKeys(ID);
+        driver.findElement(documentNumberOnBillBox).sendKeys(ID);
+    }
+
+    public void enterDocumentStateOnBill(String state){
+        driver.findElement(passengerStateOnBill).sendKeys(state);
+    }
+
+    public void enterPassengerCityOnBill(String city){
+        driver.findElement(passengerCityOnBill).sendKeys(city);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        driver.findElement(passengerCityOnBill).sendKeys(Keys.ARROW_DOWN);
+        driver.findElement(passengerCityOnBill).sendKeys(Keys.ENTER);
+        //driver.findElement(By.cssSelector("div[id=\"ui-id-15\"]")).click();
+    }
+
+    public void enterPassengerAddressOnBill(String address){
+        driver.findElement(passengerAddressOnBill).sendKeys(address);
     }
 }
