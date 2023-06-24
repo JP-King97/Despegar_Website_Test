@@ -2,34 +2,52 @@ package purchase;
 
 import base.BaseTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
 import pages.CheckoutPage;
 import pages.FlightsHomePage;
 import pages.FlightsResultPage;
 
+import static org.testng.Assert.assertEquals;
 public class PurchaseTest extends BaseTest {
-    @Test
-    public void testSuccessfulPurchase(){
-       // homePage.clickFlightsFrame();
-       // homePage.selectDepartureLocation();
-       // homePage.selectDestinationLocation();
+    private FlightsHomePage flightsPg;
+    private FlightsResultPage resultPage;
+    private CheckoutPage checkoutPg;
 
-        FlightsHomePage flightsPg = homePage.selectFlights();
+    @Test(priority = 1)
+    public void testFlightsPageVerification(){
+        flightsPg = homePage.selectFlights();
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        String url = driver.getCurrentUrl();
+        assertEquals(url,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
+    }
+
+    @Test(priority = 2 , dependsOnMethods = "testFlightsPageVerification")
+    public void testFlightDatesAndLocations(){
         flightsPg.closeLoginPopUp();
         flightsPg.selectRoundTrips();
+        //Enter the flight dates and locations
         flightsPg.selectDepartureDate(4,10,2023);
+        System.out.println("Date:"+flightsPg.getDepartureDate());
         flightsPg.selectArrivalDate(2,11,2023);
         flightsPg.enterDepartureLocation("Medellín, Antioquia, Colombia");
         flightsPg.enterArrivalLocation("Cali, Valle del Cauca, Colombia");
-        FlightsResultPage resultPage = flightsPg.summitSearchInformation();
-        /////////////////////////////
+        //Summit the flights dates and locations
+        resultPage = flightsPg.summitSearchInformation();
+    }
+
+    @Test(priority = 3, dependsOnMethods = "testFlightDatesAndLocations")
+    public void testSelectFirstResult(){
         resultPage.closePopUpDiscount();
-        CheckoutPage checkoutPg = resultPage.clickFirstBuyButton();
-        ////////////////////////Despues de esto puede aparecer un modal del equipaje
+        //Select the first result
+        checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
+    }
+
+    @Test(priority = 4, dependsOnMethods = "testSelectFirstResult")
+    public void testSetPassengerInformation(){
         checkoutPg.enterFirstName("Juan Alberto");
         checkoutPg.enterLastName("Gonzalez Garcia");
         checkoutPg.selectCountry("Colombia");
@@ -53,6 +71,5 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterPassengerAddressOnBill("Cra 34 #28-31");
         checkoutPg.checkTermsAndConditions();
         checkoutPg.pressNoAssistanceButton();
-
     }
 }

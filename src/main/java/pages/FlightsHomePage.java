@@ -81,6 +81,11 @@ public class FlightsHomePage {
         }
         driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
         driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
+
+    }
+
+    public String getDepartureDate(){
+        return driver.findElement(departureDateBox).getAttribute("Value");
     }
 
 

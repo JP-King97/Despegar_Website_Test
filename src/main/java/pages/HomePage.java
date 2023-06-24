@@ -22,40 +22,4 @@ public class HomePage {
         return new FlightsHomePage(driver);
     }
 
-    ////////////flights frame
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   // public void clickFlightsFrame(){
-   //     driver.findElement(flightsFrame).click();
-   // }
-   //
-   // public void selectTripType(){
-   //     driver.findElement(roundTripButton).click();
-   // }
-   //
-   // public void selectDepartureLocation(){
-   //     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-   //     driver.findElement(leavingFromBox).sendKeys(Keys.ENTER);
-   //     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-   //     driver.findElement(enterDepartureCity).sendKeys("medellin"+Keys.ENTER);
-   // }
-   //
-   // public void selectDestinationLocation(){
-   //     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-   //     driver.findElement(goingToBox).sendKeys(Keys.ENTER);
-   //     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-   //     driver.findElement(enterDestinationCity).sendKeys("cali"+Keys.ENTER);
-   // }
 }
