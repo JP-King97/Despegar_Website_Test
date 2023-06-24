@@ -61,9 +61,9 @@ public class CheckoutPage {
         driver.findElement(countryBox).sendKeys(country + Keys.ENTER);
     }
 
-    public void enterNumberID(String documentType,long ID){
+    public void enterNumberID(String documentType,String ID){
         driver.findElement(documentTypeDropdown).sendKeys(documentType);
-        driver.findElement(documentNumberBox).sendKeys(""+ID+"");
+        driver.findElement(documentNumberBox).sendKeys(ID);
     }
 
     public void selectDateOfBirth(int day, int month, int year){
@@ -76,10 +76,10 @@ public class CheckoutPage {
 
     public void selectSex(String sex){
         switch(sex){
-            case "m", "M" :
+            case "masculino", "Masculino" :
                 driver.findElement(maleCheckBox).click();
                 break;
-            case "f", "F" :
+            case "femenino", "Femenino" :
                 driver.findElement(femaleCheckBox).click();
                 break;
             default:

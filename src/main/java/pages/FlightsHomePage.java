@@ -47,6 +47,10 @@ public class FlightsHomePage {
         driver.findElement(departureLocation).sendKeys(Keys.ENTER);
     }
 
+    public String getSelectedDepartureLocation(){
+        return driver.findElement(departureLocation).getAttribute("value");
+    }
+
     public void enterArrivalLocation(String arrivalLocationName){
         driver.findElement(arrivalLocation).click();
         driver.findElement(arrivalLocation).sendKeys(Keys.CONTROL+"a");
@@ -58,6 +62,10 @@ public class FlightsHomePage {
             throw new RuntimeException(e);
         }
         driver.findElement(arrivalLocation).sendKeys(Keys.ENTER);
+    }
+
+    public String getSelectedArrivalLocation(){
+        return driver.findElement(arrivalLocation).getAttribute("value");
     }
 
     /**
@@ -79,35 +87,44 @@ public class FlightsHomePage {
                 driver.findElement(By.cssSelector(" div > a.calendar-arrow-right")).click();
             }
         }
-        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
-        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
+        driver.findElement(By.cssSelector("div[class=\"sbox5-monthgrid\"] > div > div:nth-child("+(day+1)+") > div")).click();
 
     }
 
     public String getDepartureDate(){
-        return driver.findElement(departureDateBox).getAttribute("Value");
+        return driver.findElement(departureDateBox).getAttribute("value");
     }
 
+    public String getDesiredDepDate(int day, int month, int year){
+        return (""+day+" "+getMonthInfo(""+month+"")[1]+" "+year);
+    }
 
     public void selectArrivalDate(int day, int month, int year){
         driver.findElement(arrivalDateBox).click();
         if(!yearCheck(year)){
             while(!yearCheck(year)){
-                driver.findElement(By.id("ico-arrow-right")).click();
+                driver.findElement(By.cssSelector("div > a.calendar-arrow-right")).click();
             }
         }
         if(!monthCheck(month)){
             while(!monthCheck(month)){
-                driver.findElement(By.cssSelector(" div > a.calendar-arrow-right")).click();
+                driver.findElement(By.cssSelector("div > a.calendar-arrow-right")).click();
             }
         }
-        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
-        driver.findElement(By.cssSelector("div.sbox5-monthgrid-dates.sbox5-monthgrid-dates-30 > div:nth-child("+(day+1)+") > div")).click();
+        driver.findElement(By.cssSelector("div[class=\"sbox5-monthgrid\"] > div > div:nth-child("+(day+1)+") > div")).click();
+    }
+
+    public String getArrivalDate(){
+        return driver.findElement(arrivalDateBox).getAttribute("value");
+    }
+
+    public String getDesiredArrDate(int day, int month, int year){
+        return (""+day+" "+getMonthInfo(""+month+"")[1]+" "+year);
     }
 
     private boolean monthCheck(int month){
         String monthName = (driver.findElement(By.cssSelector("div.sbox5-monthgrid-title > div:nth-child(1)")).getAttribute("innerText"));
-        int monthNumber = getMonthNumber(monthName);
+        int monthNumber = Integer.parseInt(getMonthInfo(monthName)[0]);
         boolean check = false;
         if (monthNumber == month){
             check = true;
@@ -124,53 +141,50 @@ public class FlightsHomePage {
         return check;
     }
 
-    private int getMonthNumber(String month){
-        int monthNumber;
+
+    private String[] getMonthInfo(String month){
+
+        String[] monthInfo = new String[3] ;
         switch(month){
-            case "Enero":
-                monthNumber = 1;
+            case "Enero","1":
+                monthInfo = new String[]{"1", "Ene", "Enero"};
                 break;
-            case "Febrero":
-            monthNumber = 2;
+            case "Febrero","2":
+                monthInfo = new String[]{"2", "Feb", "Febrero"};
                 break;
-            case "Marzo":
-                monthNumber = 3;
+            case "Marzo","3":
+                monthInfo = new String[]{"3", "Mar", "Marzo"};
                 break;
-            case "Abril":
-                monthNumber = 4;
+            case "Abril","4":
+                monthInfo = new String[]{"4", "Abr", "Abril"};
                 break;
-            case "Mayo":
-                monthNumber = 5;
+            case "Mayo","5":
+                monthInfo = new String[]{"5", "May", "Mayo"};
                 break;
-            case "Junio":
-                monthNumber = 6;
+            case "Junio","6":
+                monthInfo = new String[]{"6", "Jun", "Junio"};
                 break;
-            case "Julio":
-                monthNumber = 7;
+            case "Julio","7":
+                monthInfo = new String[]{"7", "Jul", "Julio"};
                 break;
-            case "Agosto":
-                monthNumber = 8;
+            case "Agosto","8":
+                monthInfo = new String[]{"8", "Ago", "Agosto"};
                 break;
-            case "Septiembre":
-                monthNumber = 9;
+            case "Septiembre","9":
+                monthInfo = new String[]{"9", "Sep", "Septiembre"};
                 break;
-            case "Octubre":
-                monthNumber = 10;
+            case "Octubre","10":
+                monthInfo = new String[]{"10", "Oct", "Octubre"};
                 break;
-            case "Noviembre":
-                monthNumber = 11;
+            case "Noviembre","11":
+                monthInfo = new String[]{"11", "Nov", "Noviembre"};
                 break;
-            case "Diciembre":
-                monthNumber = 12;
+            case "Diciembre","12":
+                monthInfo = new String[]{"12", "Dic", "Diciembre"};
                 break;
             default:
                 throw new IllegalStateException("Unexciting Month: " + month);
         }
-        return monthNumber;
-    }
-
-    public static void main(String[] args) {
-        WebDriver driver = new ChromeDriver();
-        HomePage homePage = new HomePage(driver);
+        return monthInfo;
     }
 }
