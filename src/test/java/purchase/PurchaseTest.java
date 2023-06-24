@@ -13,22 +13,23 @@ public class PurchaseTest extends BaseTest {
     private FlightsHomePage flightsPg;
     private FlightsResultPage resultPage;
     private CheckoutPage checkoutPg;
-    private final int[] depDate={8,12,2023};
-    private final int[] arrDate={10,5,2024};
+    CheckoutPurchaseDetailsPage purchaseDetailsPg;
+    private final int[] depDate={1,1,2024};
+    private final int[] arrDate={1,2,2024};
     private final String desireDepartureCity = "Medellín, Antioquia, Colombia";
     private final String desireArrivalCity = "Cali, Valle del Cauca, Colombia";
     String[] passenger = {
-            "Juan Alberto",
-            "Gonzalez Garcia",
+            "Dave",
+            "Chapelle",
             "masculino",
             "Colombia",
             "Antioquia",
             "Envigado",
             "Cédula de ciudadanía",
-            "1027342586",
-            "despegar_Selenium_test@gmail.com",
+            "1027667586",
+            "despegar_Selenium_test2_Java@gmail.com",
             "Celular",
-            "3196862442",
+            "3196865242",
             "Cra 34 #28-31"};
 
     @Test(priority = 1)
@@ -77,8 +78,8 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterLastName(passenger[1]);
         checkoutPg.selectCountry(passenger[3]);
         checkoutPg.enterNumberID(passenger[6], passenger[7]);
-        checkoutPg.selectDateOfBirth(3,6,1987);
-        checkoutPg.selectSex(passenger[2]);
+        //checkoutPg.selectDateOfBirth(3,6,1987);
+        //checkoutPg.selectSex(passenger[2]);
         checkoutPg.enterEmail(passenger[8]);
         checkoutPg.enterEmailConfirmation(passenger[8]);
         checkoutPg.selectNumberType(passenger[9]);
@@ -95,12 +96,19 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterPassengerCityOnBill(passenger[5]+", "+passenger[4]+", "+passenger[3]);
         checkoutPg.enterPassengerAddressOnBill(passenger[11]);
         checkoutPg.checkTermsAndConditions();
-        CheckoutPurchaseDetailsPage purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
+        purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
         try {
-            Thread.sleep(30000);
+            Thread.sleep(60000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         Assert.assertTrue(purchaseDetailsPg.pageURLCheck());
+
     }
+
+    @Test(priority = 5, dependsOnMethods = "testSetPassengerInformation")
+    public void testPurchaseDetailsVerification() {
+        Assert.assertTrue(purchaseDetailsPg.HeaderTextCheck());
+    }
+
 }

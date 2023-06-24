@@ -90,7 +90,7 @@ public class CheckoutPage {
 
     public void enterEmail(String email){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)","");
+        js.executeScript("window.scrollBy(0,800)","");
         driver.findElement(emailBox).click();
         driver.findElement(emailBox).sendKeys(email);
     }
