@@ -242,8 +242,8 @@ public class CheckoutPage {
         driver.findElement(termAndConditionsCheckBox).click();
     }
 
-    public PaymentDetailsReview pressNoAssistanceButton(){
+    public CheckoutPurchaseDetailsPage pressNoAssistanceButton(){
         driver.findElement(noAssistanceButton).click();
-        return new PaymentDetailsReview(driver);
+        return new CheckoutPurchaseDetailsPage(driver);
     }
 }

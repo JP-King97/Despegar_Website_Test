@@ -4,6 +4,7 @@ import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CheckoutPage;
+import pages.CheckoutPurchaseDetailsPage;
 import pages.FlightsHomePage;
 import pages.FlightsResultPage;
 
@@ -12,8 +13,8 @@ public class PurchaseTest extends BaseTest {
     private FlightsHomePage flightsPg;
     private FlightsResultPage resultPage;
     private CheckoutPage checkoutPg;
-    private final int[] depDate={8,11,2023};
-    private final int[] arrDate={10,3,2024};
+    private final int[] depDate={8,12,2023};
+    private final int[] arrDate={10,5,2024};
     private final String desireDepartureCity = "Medellín, Antioquia, Colombia";
     private final String desireArrivalCity = "Cali, Valle del Cauca, Colombia";
     String[] passenger = {
@@ -94,6 +95,12 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterPassengerCityOnBill(passenger[5]+", "+passenger[4]+", "+passenger[3]);
         checkoutPg.enterPassengerAddressOnBill(passenger[11]);
         checkoutPg.checkTermsAndConditions();
-        checkoutPg.pressNoAssistanceButton();
+        CheckoutPurchaseDetailsPage purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertTrue(purchaseDetailsPg.pageURLCheck());
     }
 }

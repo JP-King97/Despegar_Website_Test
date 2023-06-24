@@ -8,4 +8,8 @@ public class CheckoutPurchaseDetailsPage {
     public CheckoutPurchaseDetailsPage(WebDriver driver){
         this.driver = driver;
     }
+    public boolean pageURLCheck(){
+        String currentURL = driver.getCurrentUrl();
+        return currentURL.contains("https://www.despegar.com.co/checkout/purchase");
+    }
 }
