@@ -32,6 +32,7 @@ public class CheckoutPage {
     private final By passengerCityOnBill = By.cssSelector("input[id=\"invoice-fiscal-address-city-CASH_TRANSFER_GFCF-0\"]");
     private final By passengerAddressOnBill = By.cssSelector("input[class=\"input-tag invoice-fiscal-address-street ng-untouched ng-pristine ng-invalid\"]");
     private final By termAndConditionsCheckBox = By.cssSelector("i[class=\"checkbox-check eva-3-icon-checkmark -eva-3-mr-sm\"]");
+    private final By noAssistanceButton = By.cssSelector("a[class=\"chk-button -lg -secondary eva-3-btn\"]");
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
     }
@@ -239,5 +240,10 @@ public class CheckoutPage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,800)","");
         driver.findElement(termAndConditionsCheckBox).click();
+    }
+
+    public PaymentDetailsReview pressNoAssistanceButton(){
+        driver.findElement(noAssistanceButton).click();
+        return new PaymentDetailsReview(driver);
     }
 }
