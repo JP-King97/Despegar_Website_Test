@@ -246,4 +246,8 @@ public class CheckoutPage {
         driver.findElement(noAssistanceButton).click();
         return new CheckoutPurchaseDetailsPage(driver);
     }
+    public boolean urlCheck(){
+        String currentURL = driver.getCurrentUrl();
+        return currentURL.contains("https://www.despegar.com.co/checkout");
+    }
 }

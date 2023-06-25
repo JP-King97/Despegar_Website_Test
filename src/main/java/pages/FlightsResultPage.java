@@ -48,4 +48,9 @@ public class FlightsResultPage {
         js.executeScript("window.scrollBy(0,500)","");
     }
 
+    public boolean urlCheck(){
+        String currentURL = driver.getCurrentUrl();
+        return currentURL.contains("https://www.despegar.com.co/shop/flights/results");
+    }
+
 }

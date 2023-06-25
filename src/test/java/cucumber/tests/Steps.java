@@ -1,18 +1,18 @@
-package purchase;
+package cucumber.tests;
 
-import base.BaseTest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import pages.CheckoutPage;
-import pages.CheckoutPurchaseDetailsPage;
-import pages.FlightsHomePage;
-import pages.FlightsResultPage;
+import pages.*;
 
-import static org.testng.Assert.*;
-public class PurchaseTest extends BaseTest {
+public class Steps {
+    public WebDriver driver;
+    protected HomePage homePage;
     private FlightsHomePage flightsPg;
     private FlightsResultPage resultPage;
     private CheckoutPage checkoutPg;
@@ -21,7 +21,7 @@ public class PurchaseTest extends BaseTest {
     private final int[] arrDate={1,2,2024};
     private final String desireDepartureCity = "Medellín, Antioquia, Colombia";
     private final String desireArrivalCity = "Cali, Valle del Cauca, Colombia";
-    String[] passenger = {
+    private String[] passenger = {
             "Dave",
             "Chapelle",
             "masculino",
@@ -35,9 +35,17 @@ public class PurchaseTest extends BaseTest {
             "3196865242",
             "Cra 34 #28-31"};
 
+    //public void setUp(){
+    //}
 
-    @Test(priority = 1)
+    @Given("The flights page on Despegar website is set")
     public void testFlightsPageVerification(){
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().window().maximize();
+        driver.get("https://www.despegar.com.co"); //here goes the website URL
+        homePage = new HomePage(driver);
         flightsPg = homePage.selectFlights();
         try {
             Thread.sleep(6000);
@@ -48,7 +56,7 @@ public class PurchaseTest extends BaseTest {
         Assert.assertEquals(url,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
     }
 
-    @Test(priority = 2 , dependsOnMethods = "testFlightsPageVerification")
+    @When("the dates and locations are set correctly and summit")
     public void testFlightDatesAndLocations(){
         flightsPg.closeLoginPopUp();
         flightsPg.selectRoundTrips();
@@ -73,10 +81,9 @@ public class PurchaseTest extends BaseTest {
             throw new RuntimeException(e);
         }
         Assert.assertTrue(resultPage.urlCheck());
-
     }
 
-    @Test(priority = 3, dependsOnMethods = "testFlightDatesAndLocations")
+    @Then("the passenger is able to select the first flight option from the results page")
     public void testSelectFirstResult(){
         resultPage.closePopUpDiscount();
         //Select the first result
@@ -89,7 +96,6 @@ public class PurchaseTest extends BaseTest {
         Assert.assertTrue(checkoutPg.urlCheck());
     }
 
-    @Test(priority = 4, dependsOnMethods = "testSelectFirstResult")
     public void testSetPassengerInformation(){
         checkoutPg.enterFirstName(passenger[0]);
         checkoutPg.enterLastName(passenger[1]);
@@ -123,9 +129,15 @@ public class PurchaseTest extends BaseTest {
 
     }
 
-    @Test(priority = 5, dependsOnMethods = "testSetPassengerInformation")
     public void testPurchaseDetailsVerification() {
         Assert.assertTrue(purchaseDetailsPg.HeaderTextCheck());
     }
+
+    // @AfterTest
+    // public void tearDown(){
+    //     driver.quit();
+    // }
+
+
 
 }

@@ -18,6 +18,7 @@ public class FlightsHomePage {
         this.driver=driver;
     }
 
+
     private void getTypeOfFlights(By typeOfFlight){
         driver.findElement(typeOfFlight);
     }
