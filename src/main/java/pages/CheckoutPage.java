@@ -66,25 +66,29 @@ public class CheckoutPage {
         driver.findElement(documentNumberBox).sendKeys(ID);
     }
 
-    public void selectDateOfBirth(int day, int month, int year){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)","");
-        driver.findElement(dayOfBirth).sendKeys(""+day+"");
-        driver.findElement(monthOfBirth).sendKeys(""+month+"");
-        driver.findElement(yearOfBirth).sendKeys(""+year+"");
-    }
+    public void selectDateOfBirth(String day, String month, String year){
+        if(driver.findElement(dayOfBirth).isEnabled()){
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,400)","");
+            driver.findElement(dayOfBirth).sendKeys(day);
+            driver.findElement(monthOfBirth).sendKeys(month);
+            driver.findElement(yearOfBirth).sendKeys(year);
+        }
+       }
 
     public void selectSex(String sex){
-        switch(sex){
-            case "masculino", "Masculino" :
-                driver.findElement(maleCheckBox).click();
-                break;
-            case "femenino", "Femenino" :
-                driver.findElement(femaleCheckBox).click();
-                break;
-            default:
-                System.out.println("Sex option not founded");
-                break;
+        if(driver.findElement(maleCheckBox).isEnabled()){
+            switch(sex){
+                case "masculino", "Masculino" :
+                    driver.findElement(maleCheckBox).click();
+                    break;
+                case "femenino", "Femenino" :
+                    driver.findElement(femaleCheckBox).click();
+                    break;
+                default:
+                    System.out.println("Sex option not founded");
+                    break;
+            }
         }
     }
 

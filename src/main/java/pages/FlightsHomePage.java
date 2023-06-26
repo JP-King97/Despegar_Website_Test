@@ -80,12 +80,12 @@ public class FlightsHomePage {
         driver.findElement(departureDateBox).click();
         if(!yearCheck(year)){
             while(!yearCheck(year)){
-                driver.findElement(By.cssSelector("div > a.calendar-arrow-right")).click();
+                driver.findElement(By.cssSelector(" a.calendar-arrow-right > svg")).click();
             }
         }
         if(!monthCheck(month)){
             while(!monthCheck(month)){
-                driver.findElement(By.cssSelector("div > a.calendar-arrow-right")).click();
+                driver.findElement(By.cssSelector(" a.calendar-arrow-right > svg")).click();
             }
         }
         driver.findElement(By.cssSelector("div[class=\"sbox5-monthgrid\"] > div > div:nth-child("+(day+1)+") > div")).click();
@@ -104,12 +104,12 @@ public class FlightsHomePage {
         driver.findElement(arrivalDateBox).click();
         if(!yearCheck(year)){
             while(!yearCheck(year)){
-                driver.findElement(By.cssSelector("div > a.calendar-arrow-right")).click();
+                driver.findElement(By.cssSelector(" a.calendar-arrow-right > svg")).click();
             }
         }
         if(!monthCheck(month)){
             while(!monthCheck(month)){
-                driver.findElement(By.cssSelector("div > a.calendar-arrow-right")).click();
+                driver.findElement(By.cssSelector(" a.calendar-arrow-right > svg")).click();
             }
         }
         driver.findElement(By.cssSelector("div[class=\"sbox5-monthgrid\"] > div > div:nth-child("+(day+1)+") > div")).click();

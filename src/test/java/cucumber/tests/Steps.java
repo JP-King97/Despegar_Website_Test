@@ -17,23 +17,30 @@ public class Steps {
     private FlightsResultPage resultPage;
     private CheckoutPage checkoutPg;
     private CheckoutPurchaseDetailsPage purchaseDetailsPg;
-    private final int[] depDate={1,1,2024};
-    private final int[] arrDate={1,2,2024};
-    private final String desireDepartureCity = "Medellín, Antioquia, Colombia";
-    private final String desireArrivalCity = "Cali, Valle del Cauca, Colombia";
+    private final int[] depDate={4,2,2024};
+    private final int[] arrDate={5,2,2024};
+    private final String desireDepartureCity = "Medellín";
+    private final String desireArrivalCity = "Cali";
     private String[] passenger = {
-            "Dave",
-            "Chapelle",
+            "Daniel",
+            "Moreno",
             "masculino",
             "Colombia",
             "Antioquia",
             "Envigado",
             "Cédula de ciudadanía",
-            "1027667586",
-            "despegar_Selenium_test2_Java@gmail.com",
+            "1028658686",
+            "despegar_Selenium_test1_Java@gmail.com",
             "Celular",
-            "3196865242",
-            "Cra 34 #28-31"};
+            "3196997242",
+            "Cra 34 #28-31",
+            "3","6","1987"};
+
+    private String[] paymentInformation = {
+            "PSE",
+            "Bancolombia",
+            "natural"
+    };
 
     //public void setUp(){
     //}
@@ -56,7 +63,7 @@ public class Steps {
         Assert.assertEquals(url,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
     }
 
-    @When("the dates and locations are set correctly and summit")
+    @When("the dates and locations are set correctly and submit")
     public void testFlightDatesAndLocations(){
         flightsPg.closeLoginPopUp();
         flightsPg.selectRoundTrips();
@@ -70,9 +77,9 @@ public class Steps {
         String desiredArrDat = flightsPg.getDesiredArrDate(arrDate[0],arrDate[1],arrDate[2]);
         Assert.assertTrue(selectedArrDate.contains(desiredArrDat),"Arrival date is different");
         flightsPg.enterDepartureLocation(desireDepartureCity);
-        Assert.assertEquals(desireDepartureCity,flightsPg.getSelectedDepartureLocation(),"Departure location is different");
+        Assert.assertTrue((flightsPg.getSelectedDepartureLocation()).contains(desireDepartureCity),"Departure location is different");
         flightsPg.enterArrivalLocation(desireArrivalCity);
-        Assert.assertEquals(desireArrivalCity,flightsPg.getSelectedArrivalLocation(),"Arrival location is different");
+        Assert.assertTrue((flightsPg.getSelectedArrivalLocation()).contains(desireArrivalCity),"Arrival location is different");
         //Summit the flights dates and locations
         resultPage = flightsPg.summitSearchInformation();
         try {
@@ -96,21 +103,29 @@ public class Steps {
         Assert.assertTrue(checkoutPg.urlCheck());
     }
 
+    @Given("the flight is selected to be purchase already")
+    public void the_flight_is_selected_to_be_purchase_already(){
+        testFlightsPageVerification();
+        testFlightDatesAndLocations();
+        testSelectFirstResult();
+    }
+
+    @When("the passenger and payment information is set and submit")
     public void testSetPassengerInformation(){
         checkoutPg.enterFirstName(passenger[0]);
         checkoutPg.enterLastName(passenger[1]);
         checkoutPg.selectCountry(passenger[3]);
         checkoutPg.enterNumberID(passenger[6], passenger[7]);
-        //checkoutPg.selectDateOfBirth(3,6,1987);
-        //checkoutPg.selectSex(passenger[2]);
+        checkoutPg.selectDateOfBirth(passenger[12],passenger[13],passenger[14]);
+        checkoutPg.selectSex(passenger[2]);
         checkoutPg.enterEmail(passenger[8]);
         checkoutPg.enterEmailConfirmation(passenger[8]);
         checkoutPg.selectNumberType(passenger[9]);
         checkoutPg.selectPhoneCountry(passenger[3]);
         checkoutPg.enterPhoneNumber(passenger[10]);
-        checkoutPg.selectPaymentType("PSE");
-        checkoutPg.selectBank("Bancolombia");
-        checkoutPg.selectFiscalStatus("natural");
+        checkoutPg.selectPaymentType(paymentInformation[0]);
+        checkoutPg.selectBank(paymentInformation[1]);
+        checkoutPg.selectFiscalStatus(paymentInformation[2]);
         checkoutPg.enterFirstNameOnBill(passenger[0]);
         checkoutPg.enterLastNameOnBill(passenger[1]);
         checkoutPg.selectDocumentTypeOnBill(passenger[6]);
@@ -129,8 +144,17 @@ public class Steps {
 
     }
 
+    @Then ("the passenger should be able to review the information provided before")
     public void testPurchaseDetailsVerification() {
-        Assert.assertTrue(purchaseDetailsPg.HeaderTextCheck());
+        Assert.assertTrue(purchaseDetailsPg.headerTextCheck());
+        Assert.assertTrue(purchaseDetailsPg.bankEntityCheck(paymentInformation[1]));
+        Assert.assertTrue(purchaseDetailsPg.paymentMethodCheck(paymentInformation[0]));
+        Assert.assertTrue(purchaseDetailsPg.emailCheck(passenger[8]));
+        Assert.assertTrue(purchaseDetailsPg.locationsCheck(desireDepartureCity,desireArrivalCity));
+        Assert.assertTrue(purchaseDetailsPg.flightTypeCheck());
+        Assert.assertTrue(purchaseDetailsPg.departureDateCheck(depDate));
+        Assert.assertTrue(purchaseDetailsPg.arrivalDateCheck(arrDate));
+
     }
 
     // @AfterTest

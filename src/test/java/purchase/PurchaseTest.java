@@ -1,9 +1,6 @@
 package purchase;
 
 import base.BaseTest;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CheckoutPage;
@@ -11,7 +8,6 @@ import pages.CheckoutPurchaseDetailsPage;
 import pages.FlightsHomePage;
 import pages.FlightsResultPage;
 
-import static org.testng.Assert.*;
 public class PurchaseTest extends BaseTest {
     private FlightsHomePage flightsPg;
     private FlightsResultPage resultPage;
@@ -33,7 +29,16 @@ public class PurchaseTest extends BaseTest {
             "despegar_Selenium_test2_Java@gmail.com",
             "Celular",
             "3196865242",
-            "Cra 34 #28-31"};
+            "Cra 34 #28-31",
+            "3","6","1987"};
+
+
+
+    private String[] paymentInformation = {
+            "PSE",
+            "Bancolombia",
+            "natural"
+    };
 
 
     @Test(priority = 1)
@@ -95,16 +100,16 @@ public class PurchaseTest extends BaseTest {
         checkoutPg.enterLastName(passenger[1]);
         checkoutPg.selectCountry(passenger[3]);
         checkoutPg.enterNumberID(passenger[6], passenger[7]);
-        //checkoutPg.selectDateOfBirth(3,6,1987);
-        //checkoutPg.selectSex(passenger[2]);
+        checkoutPg.selectDateOfBirth(passenger[12],passenger[13],passenger[14]);
+        checkoutPg.selectSex(passenger[2]);
         checkoutPg.enterEmail(passenger[8]);
         checkoutPg.enterEmailConfirmation(passenger[8]);
         checkoutPg.selectNumberType(passenger[9]);
         checkoutPg.selectPhoneCountry(passenger[3]);
         checkoutPg.enterPhoneNumber(passenger[10]);
-        checkoutPg.selectPaymentType("PSE");
-        checkoutPg.selectBank("Bancolombia");
-        checkoutPg.selectFiscalStatus("natural");
+        checkoutPg.selectPaymentType(paymentInformation[0]);
+        checkoutPg.selectBank(paymentInformation[1]);
+        checkoutPg.selectFiscalStatus(paymentInformation[2]);
         checkoutPg.enterFirstNameOnBill(passenger[0]);
         checkoutPg.enterLastNameOnBill(passenger[1]);
         checkoutPg.selectDocumentTypeOnBill(passenger[6]);
@@ -125,7 +130,15 @@ public class PurchaseTest extends BaseTest {
 
     @Test(priority = 5, dependsOnMethods = "testSetPassengerInformation")
     public void testPurchaseDetailsVerification() {
-        Assert.assertTrue(purchaseDetailsPg.HeaderTextCheck());
+        Assert.assertTrue(purchaseDetailsPg.headerTextCheck());
+        Assert.assertTrue(purchaseDetailsPg.bankEntityCheck(paymentInformation[1]));
+        Assert.assertTrue(purchaseDetailsPg.paymentMethodCheck(paymentInformation[0]));
+        Assert.assertTrue(purchaseDetailsPg.emailCheck(passenger[8]));
+        Assert.assertTrue(purchaseDetailsPg.locationsCheck(desireDepartureCity,desireArrivalCity));
+        Assert.assertTrue(purchaseDetailsPg.flightTypeCheck());
+        Assert.assertTrue(purchaseDetailsPg.departureDateCheck(depDate));
+        Assert.assertTrue(purchaseDetailsPg.arrivalDateCheck(arrDate));
+
     }
 
 }
