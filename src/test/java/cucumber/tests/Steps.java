@@ -49,6 +49,8 @@ public class Steps {
     public void testFlightsPageVerification(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("disable-infobars"); // disabling infobars
+        chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
         chromeOptions.addArguments("--no-sandbox");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
