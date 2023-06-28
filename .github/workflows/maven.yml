@@ -27,8 +27,7 @@ jobs:
           java-version: '17'
           cache: maven
       - name: set up chrome
-        uses: browser-actions/setup-chrome@v1
-        run: chrome --latest
+        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       - name: Build and run with Maven
         run: mvn -B package --file pom.xml
         
