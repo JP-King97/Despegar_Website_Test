@@ -29,7 +29,7 @@ public class BaseTest {
        //     case "edge","Edge":
        //         WebDriverManager.edgedriver()
        // }
-        System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         //  ChromeOptions chromeOptions = new ChromeOptions();
         //  chromeOptions.addArguments("disable-infobars"); // disabling infobars
         //  chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
