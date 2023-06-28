@@ -1,9 +1,8 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+
+import java.util.List;
 
 public class CheckoutPage {
 
@@ -37,6 +36,11 @@ public class CheckoutPage {
         this.driver = driver;
     }
 
+    public boolean elementExistCheck(By byElement){
+        int birthDay = driver.findElements(byElement).size();
+        return (birthDay != 0);
+    }
+
     public void enterFirstName(String firstName){
         try {
             Thread.sleep(3000);
@@ -67,7 +71,7 @@ public class CheckoutPage {
     }
 
     public void selectDateOfBirth(String day, String month, String year){
-        if(driver.findElement(dayOfBirth).isEnabled()){
+        if(elementExistCheck(dayOfBirth)){
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollBy(0,400)","");
             driver.findElement(dayOfBirth).sendKeys(day);
@@ -77,7 +81,7 @@ public class CheckoutPage {
        }
 
     public void selectSex(String sex){
-        if(driver.findElement(maleCheckBox).isEnabled()){
+        if(elementExistCheck(maleCheckBox)){
             switch(sex){
                 case "masculino", "Masculino" :
                     driver.findElement(maleCheckBox).click();
@@ -151,11 +155,11 @@ public class CheckoutPage {
                 break;
             case "Criptomonedas":
                 ID = driver.findElement(By.cssSelector("input[value=\"CASH_TRANSFER_BNB\"]")).getAttribute("id");
-                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
                 break;
             case "PSE":
                 ID = driver.findElement(By.cssSelector("input[value=\"CASH_TRANSFER_GFCF\"]")).getAttribute("id");
-                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+ selectPaymentMethodNumber(ID)+") > li > p > label > i")).click();
+                driver.findElement(By.cssSelector("payment-method-selector-radio-button-option:nth-child("+(selectPaymentMethodNumber(ID))+") > li > p > label > i")).click();
                 break;
             default:
                 System.out.println("Payment method not found");
@@ -177,6 +181,8 @@ public class CheckoutPage {
                 return pm = 5;
             case "payment-method-5":
                 return pm = 6;
+            case "payment-method-6":
+                return pm = 7;
             default:
                 System.out.println("payment method not founded");
                 return pm;
