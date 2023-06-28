@@ -29,13 +29,12 @@ public class BaseTest {
        //     case "edge","Edge":
        //         WebDriverManager.edgedriver()
        // }
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-       // chromeOptions.addArguments("--disable-features=AutomationControlled");
-       // chromeOptions.addExtensions(new File("C:\\Users\\User\\IdeaProjects\\Travelocity_Website_Test\\uBlock-Origin.crx"));
-       // chromeOptions.setAcceptInsecureCerts(true);
-       // chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-        driver = new ChromeDriver(chromeOptions);
+        System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
+        //  ChromeOptions chromeOptions = new ChromeOptions();
+        //  chromeOptions.addArguments("disable-infobars"); // disabling infobars
+        //  chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+        //  chromeOptions.addArguments("--no-sandbox");
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
