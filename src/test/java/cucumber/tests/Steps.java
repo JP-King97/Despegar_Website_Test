@@ -49,11 +49,11 @@ public class Steps {
     public void testFlightsPageVerification(){
         WebDriverManager.chromedriver().setup();
         //System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
-      //  ChromeOptions chromeOptions = new ChromeOptions();
+        ChromeOptions chromeOptions = new ChromeOptions();
       //  chromeOptions.addArguments("disable-infobars"); // disabling infobars
       //  chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-      //  chromeOptions.addArguments("--no-sandbox");
-        driver = new ChromeDriver();
+        chromeOptions.setHeadless(true);
+        driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
