@@ -29,12 +29,6 @@ jobs:
       - name: Set up Chrome
         uses: browser-actions/setup-chrome@v1
         run: chrome --114.0.5735.199
-      - name: set up chrome driver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          # Optional: do not specify to match Chrome's version
-          chromedriver-version: '114.0.5735.199'
-        run: chromedriver --url-base=/wd/hub &
       - name: Build and run with Maven
         run: mvn test -e
         
