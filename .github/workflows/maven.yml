@@ -34,7 +34,7 @@ jobs:
         with:
           # Optional: do not specify to match Chrome's version
           chromedriver-version: '114.0.5735.199'
-      - run: chromedriver --url-base=/wd/hub &
+        run: chromedriver --url-base=/wd/hub &
       - name: Build and run with Maven
         run: mvn test -e
         
