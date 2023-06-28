@@ -47,8 +47,8 @@ public class Steps {
 
     @Given("The flights page on Despegar website is set")
     public void testFlightsPageVerification(){
-      //  WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+        //System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
       //  ChromeOptions chromeOptions = new ChromeOptions();
       //  chromeOptions.addArguments("disable-infobars"); // disabling infobars
       //  chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
