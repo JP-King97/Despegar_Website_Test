@@ -28,7 +28,8 @@ jobs:
           cache: maven
       - name: set up chrome
         run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        
       - name: Build and run with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn test -e
         
 
