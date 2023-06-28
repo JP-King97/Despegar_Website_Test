@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: browser-actions/setup-chrome@v1
-      - run: chrome --114.0.5735.134
+      - run: chrome --latest
       - name: Copy project into the virtual machine
         uses: actions/checkout@v3
       - name: Set up JDK 17
