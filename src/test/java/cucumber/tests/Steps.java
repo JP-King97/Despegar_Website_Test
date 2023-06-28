@@ -49,7 +49,6 @@ public class Steps {
     public void testFlightsPageVerification(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
