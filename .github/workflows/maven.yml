@@ -18,7 +18,9 @@ jobs:
   set_and_submit_flight_info:
     runs-on: ubuntu-latest
     steps:
-      - uses: browser-actions/setup-chrome@v1
+      - uses: logikal-io/install-chrome@v1
+        with:
+         version: 114.0.5735.134
       - name: Copy project into the virtual machine
         uses: actions/checkout@v3
       - name: Set up JDK 17
