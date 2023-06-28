@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class FlightsHomePage {
     private WebDriver driver;
@@ -13,13 +17,19 @@ public class FlightsHomePage {
     private final By departureDateBox = By.cssSelector("input[placeholder=\"Ida\"]");
     private final By arrivalDateBox = By.cssSelector("input[placeholder=\"Vuelta\"]");
     private final By searchButton = By.cssSelector("div.sbox5-button-container--1X4O8 > button");
+    private final WebDriverWait wait;
 
     public FlightsHomePage(WebDriver driver) {
         this.driver=driver;
+        wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
+    public void waitToBeClickable(By byElement){
+        wait.until(ExpectedConditions.elementToBeClickable(byElement));
+    }
 
     private void getTypeOfFlights(By typeOfFlight){
+        waitToBeClickable(typeOfFlight);
         driver.findElement(typeOfFlight);
     }
 
@@ -28,14 +38,17 @@ public class FlightsHomePage {
     }
 
     public void closeLoginPopUp(){
+        waitToBeClickable(By.cssSelector(" div.login-incentive--content > span"));
         driver.findElement(By.cssSelector(" div.login-incentive--content > span")).click();
     }
     public FlightsResultPage summitSearchInformation(){
+        waitToBeClickable(searchButton);
         driver.findElement(searchButton).click();
         return new  FlightsResultPage(driver);
     }
 
     public void enterDepartureLocation(String departureLocationName){
+        waitToBeClickable(departureLocation);
         driver.findElement(departureLocation).click();
         driver.findElement(departureLocation).sendKeys(Keys.CONTROL+"a");
         driver.findElement(departureLocation).sendKeys(Keys.BACK_SPACE);
@@ -49,10 +62,12 @@ public class FlightsHomePage {
     }
 
     public String getSelectedDepartureLocation(){
+        waitToBeClickable(departureLocation);
         return driver.findElement(departureLocation).getAttribute("value");
     }
 
     public void enterArrivalLocation(String arrivalLocationName){
+        waitToBeClickable(arrivalLocation);
         driver.findElement(arrivalLocation).click();
         driver.findElement(arrivalLocation).sendKeys(Keys.CONTROL+"a");
         driver.findElement(arrivalLocation).sendKeys(Keys.BACK_SPACE);
@@ -66,6 +81,7 @@ public class FlightsHomePage {
     }
 
     public String getSelectedArrivalLocation(){
+        waitToBeClickable(arrivalLocation);
         return driver.findElement(arrivalLocation).getAttribute("value");
     }
 
@@ -77,6 +93,7 @@ public class FlightsHomePage {
      * @param year
      */
     public void selectDepartureDate(int day, int month, int year){
+        waitToBeClickable(departureDateBox);
         driver.findElement(departureDateBox).click();
         if(!yearCheck(year)){
             while(!yearCheck(year)){
@@ -93,6 +110,7 @@ public class FlightsHomePage {
     }
 
     public String getDepartureDate(){
+        waitToBeClickable(departureDateBox);
         return driver.findElement(departureDateBox).getAttribute("value");
     }
 
@@ -101,6 +119,7 @@ public class FlightsHomePage {
     }
 
     public void selectArrivalDate(int day, int month, int year){
+        waitToBeClickable(arrivalDateBox);
         driver.findElement(arrivalDateBox).click();
         if(!yearCheck(year)){
             while(!yearCheck(year)){
@@ -116,6 +135,7 @@ public class FlightsHomePage {
     }
 
     public String getArrivalDate(){
+        waitToBeClickable(arrivalDateBox);
         return driver.findElement(arrivalDateBox).getAttribute("value");
     }
 
@@ -124,6 +144,7 @@ public class FlightsHomePage {
     }
 
     private boolean monthCheck(int month){
+        waitToBeClickable(By.cssSelector("div.sbox5-monthgrid-title > div:nth-child(1)"));
         String monthName = (driver.findElement(By.cssSelector("div.sbox5-monthgrid-title > div:nth-child(1)")).getAttribute("innerText"));
         int monthNumber = Integer.parseInt(getMonthInfo(monthName)[0]);
         boolean check = false;
@@ -134,6 +155,7 @@ public class FlightsHomePage {
     }
 
     private boolean yearCheck(int year){
+        waitToBeClickable(By.cssSelector(" div.sbox5-monthgrid-title > div.sbox5-monthgrid-title-year"));
         int yr = Integer.parseInt((driver.findElement(By.cssSelector(" div.sbox5-monthgrid-title > div.sbox5-monthgrid-title-year")).getAttribute("innerText")));
         boolean check = false;
         if (yr == year){

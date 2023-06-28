@@ -1,7 +1,11 @@
 package pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class CheckoutPage {
@@ -32,40 +36,46 @@ public class CheckoutPage {
     private final By passengerAddressOnBill = By.cssSelector("input[class=\"input-tag invoice-fiscal-address-street ng-untouched ng-pristine ng-invalid\"]");
     private final By termAndConditionsCheckBox = By.cssSelector("i[class=\"checkbox-check eva-3-icon-checkmark -eva-3-mr-sm\"]");
     private final By noAssistanceButton = By.cssSelector("a[class=\"chk-button -lg -secondary eva-3-btn\"]");
+    private final WebDriverWait wait;
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
+        wait = new WebDriverWait(this.driver, Duration.ofSeconds(15));
+    }
+
+    public void waitToBeClickable(By byElement){
+        wait.until(ExpectedConditions.elementToBeClickable(byElement));
     }
 
     public boolean elementExistCheck(By byElement){
+        try {
+            waitToBeClickable(byElement);
+        }catch (Exception e){
+            return false;
+        }
+
         int birthDay = driver.findElements(byElement).size();
         return (birthDay != 0);
     }
 
     public void enterFirstName(String firstName){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitToBeClickable(firstNameBox);
         driver.findElement(firstNameBox).click();
         driver.findElement(firstNameBox).sendKeys(firstName);
     }
 
     public void enterLastName(String lastName){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitToBeClickable(lastNameBox);
         driver.findElement(lastNameBox).click();
         driver.findElement(lastNameBox).sendKeys(lastName);
     }
 
     public void selectCountry(String country){
+        waitToBeClickable(countryBox);
         driver.findElement(countryBox).sendKeys(country + Keys.ENTER);
     }
 
     public void enterNumberID(String documentType,String ID){
+        waitToBeClickable(documentTypeDropdown);
         driver.findElement(documentTypeDropdown).sendKeys(documentType);
         driver.findElement(documentNumberBox).sendKeys(ID);
     }
@@ -99,11 +109,13 @@ public class CheckoutPage {
     public void enterEmail(String email){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,800)","");
+        waitToBeClickable(emailBox);
         driver.findElement(emailBox).click();
         driver.findElement(emailBox).sendKeys(email);
     }
 
     public void enterEmailConfirmation(String confirmationEmail){
+        waitToBeClickable(emailConfirmationBox);
         driver.findElement(emailConfirmationBox).click();
         driver.findElement(emailConfirmationBox).sendKeys(confirmationEmail);
     }
@@ -112,6 +124,7 @@ public class CheckoutPage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)","");
 
+        waitToBeClickable(phoneNumberType);
         switch(numberType){
             case "Celular","celular":
                 driver.findElement(phoneNumberType).sendKeys("celular");
@@ -125,10 +138,12 @@ public class CheckoutPage {
     }
 
     public void selectPhoneCountry(String cellphoneCountry){
+        waitToBeClickable(cellphoneCountryBox);
         driver.findElement(cellphoneCountryBox).sendKeys(cellphoneCountry+Keys.ENTER);
     }
 
     public void enterPhoneNumber(String phoneNumber){
+        waitToBeClickable(cellphoneNumberBox);
         driver.findElement(cellphoneNumberBox).sendKeys(phoneNumber + Keys.ENTER);
     }
 
@@ -136,6 +151,7 @@ public class CheckoutPage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)","");
         String ID;
+        waitToBeClickable(By.cssSelector("payment-method-selector-radio-button-option:nth-child(1) > li > p > label > i"));
         switch(paymentType){
             case "Tarjeta de credito":
                 ID = driver.findElement(By.cssSelector("input[value=\"ONE_CARD_CREDIT\"]")).getAttribute("id");
@@ -192,12 +208,14 @@ public class CheckoutPage {
     public void selectBank(String bank){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)","");
+        waitToBeClickable(bankChoicesDropdown);
         driver.findElement(bankChoicesDropdown).sendKeys(bank+Keys.ENTER);
     }
 
     public void selectFiscalStatus(String fiscalStatus){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,800)","");
+        waitToBeClickable(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(1) > label > span > i"));
         switch(fiscalStatus){
             case "natural","Natural":
                 driver.findElement(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(1) > label > span > i"));
@@ -211,26 +229,32 @@ public class CheckoutPage {
     }
 
     public void enterFirstNameOnBill(String firstNameOnBill){
+        waitToBeClickable(firstNameOnBillBox);
         driver.findElement(firstNameOnBillBox).sendKeys(firstNameOnBill);
     }
 
     public void enterLastNameOnBill(String lastNameOnBill){
+        waitToBeClickable(lastNameOnBillBox);
         driver.findElement(lastNameOnBillBox).sendKeys(lastNameOnBill);
     }
 
     public void selectDocumentTypeOnBill(String documentType){
+        waitToBeClickable(documentTypeOnBillDropdown);
         driver.findElement(documentTypeOnBillDropdown).sendKeys(documentType);
     }
 
     public void enterDocumentNumberOnBill(String ID){
+        waitToBeClickable(documentNumberOnBillBox);
         driver.findElement(documentNumberOnBillBox).sendKeys(ID);
     }
 
     public void enterDocumentStateOnBill(String state){
+        waitToBeClickable(passengerStateOnBill);
         driver.findElement(passengerStateOnBill).sendKeys(state);
     }
 
     public void enterPassengerCityOnBill(String city){
+        waitToBeClickable(passengerCityOnBill);
         driver.findElement(passengerCityOnBill).sendKeys(city);
         try {
             Thread.sleep(1000);
@@ -243,16 +267,19 @@ public class CheckoutPage {
     }
 
     public void enterPassengerAddressOnBill(String address){
+        waitToBeClickable(passengerAddressOnBill);
         driver.findElement(passengerAddressOnBill).sendKeys(address);
     }
 
     public void checkTermsAndConditions(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,800)","");
+        waitToBeClickable(termAndConditionsCheckBox);
         driver.findElement(termAndConditionsCheckBox).click();
     }
 
     public CheckoutPurchaseDetailsPage pressNoAssistanceButton(){
+        waitToBeClickable(noAssistanceButton);
         driver.findElement(noAssistanceButton).click();
         return new CheckoutPurchaseDetailsPage(driver);
     }

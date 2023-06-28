@@ -52,7 +52,7 @@ public class Steps {
         ChromeOptions chromeOptions = new ChromeOptions();
       //  chromeOptions.addArguments("disable-infobars"); // disabling infobars
       //  chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-        chromeOptions.setHeadless(true);
+        chromeOptions.addArguments("--headless=new");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
