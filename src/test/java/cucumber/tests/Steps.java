@@ -62,7 +62,7 @@ public class Steps {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
       // chromeOptions.addArguments("disable-infobars"); // disabling infobars
-        chromeOptions.addArguments("--headless");
+        //chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--window-size=1600,900");
         driver = new ChromeDriver(chromeOptions);
         //driver.manage().window().maximize();

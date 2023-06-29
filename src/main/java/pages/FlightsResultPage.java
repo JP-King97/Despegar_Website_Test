@@ -40,11 +40,7 @@ public class FlightsResultPage {
     }
 
     public CheckoutPage clickFirstBuyButton(){
-        try {
-            Thread.sleep(8000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitToBeClickable(firstBuyButton);
         scrollDown();
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
