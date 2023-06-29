@@ -63,6 +63,7 @@ public class Steps {
         ChromeOptions chromeOptions = new ChromeOptions();
       // chromeOptions.addArguments("disable-infobars"); // disabling infobars
         chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
@@ -76,7 +77,7 @@ public class Steps {
     @When("the dates and locations are set correctly and submit")
     public void testFlightDatesAndLocations(){
         //flightsPg.closeLoginPopUp();
-        //flightsPg.selectRoundTrips();
+        flightsPg.selectRoundTrips();
         //Enter the flight dates and locations
         flightsPg.selectDepartureDate(depDate[0],depDate[1],depDate[2]);
         String selectedDepDate = flightsPg.getDepartureDate();

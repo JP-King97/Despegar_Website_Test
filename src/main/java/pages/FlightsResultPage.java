@@ -1,12 +1,13 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import com.google.common.io.Files;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
@@ -45,6 +46,13 @@ public class FlightsResultPage {
             throw new RuntimeException(e);
         }
         scrollDown();
+        try {
+            var camera = (TakesScreenshot)driver;
+            File screenshot = camera.getScreenshotAs(OutputType.FILE);
+            Files.move(screenshot,new File("C:\\Users\\User\\IdeaProjects\\Despegar_Website_Test\\Screenshots\\test.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
     }
