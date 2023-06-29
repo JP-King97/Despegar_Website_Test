@@ -35,6 +35,13 @@ public class FlightsResultPage {
     }
 
     public void closePopUpDiscount(){
+        try {
+            var camera = (TakesScreenshot)driver;
+            File screenshot = camera.getScreenshotAs(OutputType.FILE);
+            Files.move(screenshot,new File("C:\\Users\\User\\IdeaProjects\\Despegar_Website_Test\\Screenshots\\popUp2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         waitToBeClickable(popUpCloseButton);
         driver.findElement(popUpCloseButton).click();
     }

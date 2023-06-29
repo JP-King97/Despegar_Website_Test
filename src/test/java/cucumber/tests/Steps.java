@@ -76,7 +76,7 @@ public class Steps {
 
     @When("the dates and locations are set correctly and submit")
     public void testFlightDatesAndLocations(){
-        //flightsPg.closeLoginPopUp();
+        flightsPg.closeLoginPopUp();
         flightsPg.selectRoundTrips();
         //Enter the flight dates and locations
         flightsPg.selectDepartureDate(depDate[0],depDate[1],depDate[2]);
@@ -98,7 +98,7 @@ public class Steps {
 
     @Then("the passenger is able to select the first flight option from the results page")
     public void testSelectFirstResult(){
-        //resultPage.closePopUpDiscount();
+        resultPage.closePopUpDiscount();
         //Select the first result
         checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
         Assert.assertTrue(checkoutPg.urlCheck());
