@@ -28,9 +28,6 @@ jobs:
           cache: maven
       - name: set up chrome
         run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      - name: set up chrome driver
-        run: wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-        
       - name: Build and run with Maven
         run: mvn test -e
         
