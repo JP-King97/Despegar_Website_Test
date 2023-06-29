@@ -62,8 +62,8 @@ public class Steps {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
       // chromeOptions.addArguments("disable-infobars"); // disabling infobars
-        //chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("--window-size=1680,1050");
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--window-size=1600,900");
         driver = new ChromeDriver(chromeOptions);
         //driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
