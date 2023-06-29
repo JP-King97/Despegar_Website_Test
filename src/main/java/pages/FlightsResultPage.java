@@ -41,14 +41,14 @@ public class FlightsResultPage {
 
     public CheckoutPage clickFirstBuyButton(){
         waitToBeClickable(firstBuyButton);
-        scrollDown();
+        scrollDown(800);
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
     }
 
-    private void scrollDown(){
+    private void scrollDown(int verticalScroll){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,500)","");
+        js.executeScript("window.scrollBy(0,"+verticalScroll+")","");
     }
 
     public boolean urlCheck(){
