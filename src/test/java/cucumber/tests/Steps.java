@@ -9,11 +9,16 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import pages.*;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class Steps {
@@ -61,17 +66,24 @@ public class Steps {
     public void testFlightsPageVerification(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
-      // chromeOptions.addArguments("disable-infobars"); // disabling infobars
+       // chromeOptions.addArguments("disable-infobars"); // disabling infobars
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--window-size=1600,900");
-        driver = new ChromeDriver(chromeOptions);
+
+        URL url;
+        try {
+            url = new URL("http://localhost:4444");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        driver = new RemoteWebDriver(url,chromeOptions);
         //driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
         flightsPg = homePage.selectFlights();
         waitPageLoad("https://www.despegar.com.co/vuelos/");
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals(url,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
+        String currentURL = driver.getCurrentUrl();
+        Assert.assertEquals(currentURL,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
     }
 
     @When("the dates and locations are set correctly and submit")

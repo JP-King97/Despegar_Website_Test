@@ -1,0 +1,61 @@
+
+version: '3.9'
+
+#docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:latest
+
+services:
+  chrome:
+    image: selenium/node-chrome:4.10.0-20230607
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  edge:
+    image: selenium/node-edge:4.10.0-20230607
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  firefox:
+    image: selenium/node-firefox:4.10.0-20230607
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+  selenium-hub:
+    image: selenium/hub:4.10.0-20230607
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+
+
+
+
+#  Despegar_Website_Test:
+#    container_name: Despegar_Website_Test_container
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    image: "Despegar_Website_Test"
+#    depends_on:
+#      - chrome
+#    environment:
+#      DATABASE_HOST: postgres
+#      DATABASE_PORT: 5432
+#      DATABASE_NAME: family_restaurant_db
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: j3141592

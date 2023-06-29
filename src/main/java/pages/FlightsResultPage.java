@@ -57,7 +57,7 @@ public class FlightsResultPage {
             throw new RuntimeException(e);
         }
         waitToBeClickable(firstBuyButton);
-        scrollDown(400);
+        scrollDown(300);
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
     }
