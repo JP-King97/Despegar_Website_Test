@@ -4,11 +4,17 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import pages.*;
+
+import java.time.Duration;
 
 public class Steps {
     public WebDriver driver;
@@ -45,24 +51,24 @@ public class Steps {
     //public void setUp(){
     //}
 
+    public void waitPageLoad(String url){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.urlMatches(url));
+    }
+
+
     @Given("The flights page on Despegar website is set")
     public void testFlightsPageVerification(){
         WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver","./drivers/chromedriver.exe");
         ChromeOptions chromeOptions = new ChromeOptions();
-      //  chromeOptions.addArguments("disable-infobars"); // disabling infobars
-      //  chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+      // chromeOptions.addArguments("disable-infobars"); // disabling infobars
         chromeOptions.addArguments("--headless=new");
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
         flightsPg = homePage.selectFlights();
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        waitPageLoad("https://www.despegar.com.co/vuelos/");
         String url = driver.getCurrentUrl();
         Assert.assertEquals(url,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
     }
@@ -86,11 +92,6 @@ public class Steps {
         Assert.assertTrue((flightsPg.getSelectedArrivalLocation()).contains(desireArrivalCity),"Arrival location is different");
         //Summit the flights dates and locations
         resultPage = flightsPg.summitSearchInformation();
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         Assert.assertTrue(resultPage.urlCheck());
     }
 
@@ -99,11 +100,6 @@ public class Steps {
         resultPage.closePopUpDiscount();
         //Select the first result
         checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         Assert.assertTrue(checkoutPg.urlCheck());
     }
 
@@ -145,11 +141,6 @@ public class Steps {
 
     @Then ("the passenger should be able to review the information provided before")
     public void testPurchaseDetailsVerification() {
-        try {
-        Thread.sleep(60000);
-        } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-        }
         Assert.assertTrue(purchaseDetailsPg.pageURLCheck());
         //Assert.assertTrue(purchaseDetailsPg.headerTextCheck());
        // Assert.assertTrue(purchaseDetailsPg.bankEntityCheck(paymentInformation[1]));

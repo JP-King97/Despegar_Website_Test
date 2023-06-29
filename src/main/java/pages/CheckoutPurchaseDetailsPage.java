@@ -28,13 +28,11 @@ public class CheckoutPurchaseDetailsPage {
         wait.until(ExpectedConditions.elementToBeClickable(byElement));
     }
     public boolean pageURLCheck(){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/checkout/purchase"));
         String currentURL = driver.getCurrentUrl();
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return currentURL.contains("https://www.despegar.com.co/checkout/purchase");
+        boolean b = currentURL.contains("https://www.despegar.com.co/checkout/purchase");
+        return b;
     }
 
     public boolean headerTextCheck(){

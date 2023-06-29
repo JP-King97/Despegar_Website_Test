@@ -48,13 +48,12 @@ public class CheckoutPage {
 
     public boolean elementExistCheck(By byElement){
         try {
-            waitToBeClickable(byElement);
+            int birthDay = driver.findElements(byElement).size();
+            return (birthDay != 0);
         }catch (Exception e){
             return false;
         }
 
-        int birthDay = driver.findElements(byElement).size();
-        return (birthDay != 0);
     }
 
     public void enterFirstName(String firstName){
@@ -284,6 +283,8 @@ public class CheckoutPage {
         return new CheckoutPurchaseDetailsPage(driver);
     }
     public boolean urlCheck(){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/checkout"));
         String currentURL = driver.getCurrentUrl();
         return currentURL.contains("https://www.despegar.com.co/checkout");
     }

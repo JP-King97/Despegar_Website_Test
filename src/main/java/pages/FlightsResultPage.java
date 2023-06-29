@@ -55,7 +55,8 @@ public class FlightsResultPage {
     }
 
     public boolean urlCheck(){
-        waitToBeClickable(firstBuyButton);
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/shop/flights/results"));
         String currentURL = driver.getCurrentUrl();
         return currentURL.contains("https://www.despegar.com.co/shop/flights/results");
     }
