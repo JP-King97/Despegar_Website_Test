@@ -46,13 +46,6 @@ public class FlightsResultPage {
             throw new RuntimeException(e);
         }
         scrollDown();
-        try {
-            var camera = (TakesScreenshot)driver;
-            File screenshot = camera.getScreenshotAs(OutputType.FILE);
-            Files.move(screenshot,new File("Screenshots\\test.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
     }
