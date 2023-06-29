@@ -43,6 +43,7 @@ public class FlightsResultPage {
         //} catch (IOException e) {
         //    throw new RuntimeException(e);
         //}
+        scrollDown(400);
         waitToBeClickable(popUpCloseButton);
         driver.findElement(popUpCloseButton).click();
     }
@@ -56,7 +57,7 @@ public class FlightsResultPage {
        // } catch (IOException e) {
        //     throw new RuntimeException(e);
        // }
-        scrollDown(400);
+
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
     }
