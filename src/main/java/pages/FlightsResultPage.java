@@ -41,7 +41,6 @@ public class FlightsResultPage {
 
     public CheckoutPage clickFirstBuyButton(){
         waitToBeClickable(firstBuyButton);
-        scrollDown(800);
         driver.findElement(firstBuyButton).click();
         return new CheckoutPage(driver);
     }
