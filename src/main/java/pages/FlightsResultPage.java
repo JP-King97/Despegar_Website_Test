@@ -49,7 +49,7 @@ public class FlightsResultPage {
         try {
             var camera = (TakesScreenshot)driver;
             File screenshot = camera.getScreenshotAs(OutputType.FILE);
-            Files.move(screenshot,new File("Despegar_Website_Test\\Screenshots\\test.png"));
+            Files.move(screenshot,new File("Screenshots\\test.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

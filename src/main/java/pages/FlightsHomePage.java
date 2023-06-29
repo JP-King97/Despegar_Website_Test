@@ -39,13 +39,6 @@ public class FlightsHomePage {
     }
 
     public void closeLoginPopUp(){
-        try {
-            var camera = (TakesScreenshot)driver;
-            File screenshot = camera.getScreenshotAs(OutputType.FILE);
-            Files.move(screenshot,new File("C:\\Users\\User\\IdeaProjects\\Despegar_Website_Test\\Screenshots\\popUp1.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         waitToBeClickable(By.cssSelector(" div.login-incentive--content > span"));
         driver.findElement(By.cssSelector(" div.login-incentive--content > span")).click();
     }
