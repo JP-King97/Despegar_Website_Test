@@ -26,8 +26,6 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
           cache: maven
-      - name: set up chrome
-        run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
       - name: Build and run with Maven
         run: mvn test -e
         
