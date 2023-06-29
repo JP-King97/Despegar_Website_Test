@@ -70,13 +70,13 @@ public class Steps {
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--window-size=1600,900");
 
-        URL url;
-        try {
-            url = new URL("http://localhost:4444");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-        driver = new RemoteWebDriver(url,chromeOptions);
+       // URL url;
+       // try {
+       //     url = new URL("http://localhost:4444");
+       // } catch (MalformedURLException e) {
+       //     throw new RuntimeException(e);
+       // }
+        driver = new ChromeDriver(chromeOptions);
         //driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
