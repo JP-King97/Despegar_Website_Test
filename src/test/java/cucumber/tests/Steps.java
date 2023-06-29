@@ -65,7 +65,7 @@ public class Steps {
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--window-size=1920,1080");
         driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co"); //here goes the website URL
         homePage = new HomePage(driver);
         flightsPg = homePage.selectFlights();
