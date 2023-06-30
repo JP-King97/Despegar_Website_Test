@@ -35,27 +35,35 @@ public class FlightsResultPage {
     }
 
     public void closePopUpDiscount(){
-        waitToBeClickable(popUpCloseButton);
-        try {
-            var camera = (TakesScreenshot)driver;
-            File screenshot = camera.getScreenshotAs((OutputType.FILE));
-            Files.move(screenshot,new File("Screenshots\\popUp2.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+       // waitToBeClickable(popUpCloseButton);
+       // try {
+       //     var camera = (TakesScreenshot)driver;
+       //     File screenshot = camera.getScreenshotAs((OutputType.FILE));
+       //     Files.move(screenshot,new File("Screenshots\\popUp2.png"));
+       // } catch (IOException e) {
+       //     throw new RuntimeException(e);
+       // }
         waitToBeClickable(popUpCloseButton);
         driver.findElement(popUpCloseButton).click();
     }
 
     public CheckoutPage clickFirstBuyButton(){
-        waitToBeClickable(firstBuyButton);
-        try {
-            var camera = (TakesScreenshot)driver;
-            File screenshot = camera.getScreenshotAs((OutputType.FILE));
-            Files.move(screenshot,new File("Screenshots\\FirstBuyButton.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        //
+        // aitToBeClickable(firstBuyButton);
+        //
+        // ry {
+        //
+        //   var camera = (TakesScreenshot)driver;
+        //
+        //   File screenshot = camera.getScreenshotAs((OutputType.FILE));
+        //
+        //   Files.move(screenshot,new File("Screenshots\\FirstBuyButton.png"));
+        //
+        // catch (IOException e) {
+        //
+        //   throw new RuntimeException(e);
+        //
+
         waitToBeClickable(firstBuyButton);
         scrollDown(300);
         driver.findElement(firstBuyButton).click();
