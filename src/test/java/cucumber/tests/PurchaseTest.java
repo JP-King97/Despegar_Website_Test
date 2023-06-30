@@ -73,7 +73,7 @@ public class PurchaseTest {
        // options.addArguments("--no-sandbox");
        // options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1600,900");
-       // options.addArguments("--headless");
+        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.get("https://www.despegar.com.co");
         homePage = new HomePage(driver);
