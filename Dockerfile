@@ -16,4 +16,4 @@ COPY . /Despegar_Website_Test
 RUN mvn clean install;
 
 #RUN mvn exec:java -Dexec.mainClass="starter.menu.StarterMenu"
-CMD mvn exec:java -Dexec.mainClass="cucumber.test.TestRunner"
+#CMD mvn exec:java -Dexec.mainClass="cucumber.test.TestRunner"
