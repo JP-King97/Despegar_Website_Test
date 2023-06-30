@@ -95,7 +95,7 @@ public class PurchaseTest {
                 ChromeOptions chromeOpt = new ChromeOptions();
                 chromeOpt.addArguments("--no-sandbox");
                 chromeOpt.addArguments("--disable-dev-shm-usage");
-                chromeOpt.addArguments("--window-size=1920x1080");
+                chromeOpt.addArguments("--window-size=1600,900");
                 chromeOpt.addArguments("--headless");
                 return driver = new ChromeDriver(chromeOpt);
 
@@ -104,7 +104,7 @@ public class PurchaseTest {
                 EdgeOptions edgeOpt = new EdgeOptions();
                 edgeOpt.addArguments("--no-sandbox");
                 edgeOpt.addArguments("--disable-dev-shm-usage");
-                edgeOpt.addArguments("--window-size=1920x1080");
+                edgeOpt.addArguments("--window-size=1600,900");
                 edgeOpt.addArguments("--headless");
                 return driver = new EdgeDriver(edgeOpt);
 
@@ -114,7 +114,7 @@ public class PurchaseTest {
                 FirefoxProfile profile = new FirefoxProfile();
                 firefoxOpt.addArguments("--no-sandbox");
                 firefoxOpt.addArguments("--disable-dev-shm-usage");
-                firefoxOpt.addArguments("--window-size=1920x1080");
+                firefoxOpt.addArguments("--window-size=1600,900");
                 firefoxOpt.setProfile(profile);
                 firefoxOpt.addArguments("--headless");
                 return driver = new FirefoxDriver(firefoxOpt);
@@ -122,32 +122,28 @@ public class PurchaseTest {
                 return driver;
         }
     }
+
     @Given("The flights page on Despegar website is set")
-    public void testFlightsPageVerification(){
-        try{
-            driver = webDriverSelector("chrome");
-            //driver.manage().window().maximize();
-            driver.get("https://www.despegar.com.co");
-            homePage = new HomePage(driver);
-            flightsPg = homePage.selectFlights();
-            waitPageLoad("https://www.despegar.com.co/vuelos/");
-            String currentURL = driver.getCurrentUrl();
-            Assert.assertEquals(currentURL,"https://www.despegar.com.co/vuelos/","The Flights page did not charge correctly");
-        }catch(Exception e){
-            getErrorScreenshot(e.getLocalizedMessage());
-            e.printStackTrace();
-        }
+    public void testFlightsPageVerification() {
+
+        driver = webDriverSelector("chrome");
+        //driver.manage().window().maximize();
+        driver.get("https://www.despegar.com.co");
+        homePage = new HomePage(driver);
+        flightsPg = homePage.selectFlights();
+        waitPageLoad("https://www.despegar.com.co/vuelos/");
+        String currentURL = driver.getCurrentUrl();
+        Assert.assertEquals(currentURL, "https://www.despegar.com.co/vuelos/", "The Flights page did not charge correctly");
     }
+
 
     @When("the dates and locations are set correctly and submit")
     public void testFlightDatesAndLocations(){
-        try{
             if(flightsPg.checkGoogleLoginPopUp()){
                 flightsPg.closeGoogleLoginPopUp();
             }else{
                 flightsPg.closeLoginPopUp();
             }
-
             flightsPg.selectRoundTrips();
             //Enter the flight dates and locations
             flightsPg.selectDepartureDate(depDate[0],depDate[1],depDate[2]);
@@ -165,79 +161,54 @@ public class PurchaseTest {
             //Summit the flights dates and locations
             resultPage = flightsPg.summitSearchInformation();
             Assert.assertTrue(resultPage.urlCheck());
-        }catch(Exception e){
-            getErrorScreenshot(e.getLocalizedMessage());
-            e.printStackTrace();
-        }
 
     }
 
     @Then("the passenger is able to select the first flight option from the results page")
-    public void testSelectFirstResult(){
-        try{
-            resultPage.closePopUpDiscount();
-            //Select the first result
-            checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
-            Assert.assertTrue(checkoutPg.urlCheck());
-        }catch(Exception e){
-            getErrorScreenshot(e.getLocalizedMessage());
-            e.printStackTrace();
-        }
+    public void testSelectFirstResult() {
+        resultPage.closePopUpDiscount();
+        //Select the first result
+        checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
+        Assert.assertTrue(checkoutPg.urlCheck());
+
     }
     @Given("the flight is selected to be purchase already")
-    public void the_flight_is_selected_to_be_purchase_already(){
-        try{
-            testFlightsPageVerification();
-            testFlightDatesAndLocations();
-            testSelectFirstResult();
-        }catch(Exception e){
-            getErrorScreenshot(e.getLocalizedMessage());
-            e.printStackTrace();
-        }
+    public void the_flight_is_selected_to_be_purchase_already() {
+        testFlightsPageVerification();
+        testFlightDatesAndLocations();
+        testSelectFirstResult();
     }
 
     @When("the passenger and payment information is set and submit")
-    public void testSetPassengerInformation(){
-        try{
-            checkoutPg.enterFirstName(passenger[0]);
-            checkoutPg.enterLastName(passenger[1]);
-            checkoutPg.selectCountry(passenger[3]);
-            checkoutPg.enterNumberID(passenger[6], passenger[7]);
-            checkoutPg.selectDateOfBirth(passenger[12],passenger[13],passenger[14]);
-            checkoutPg.selectSex(passenger[2]);
-            checkoutPg.enterEmail(passenger[8]);
-            checkoutPg.enterEmailConfirmation(passenger[8]);
-            checkoutPg.selectNumberType(passenger[9]);
-            checkoutPg.selectPhoneCountry(passenger[3]);
-            checkoutPg.enterPhoneNumber(passenger[10]);
-            checkoutPg.selectPaymentType(paymentInformation[0]);
-            checkoutPg.selectBank(paymentInformation[1]);
-            checkoutPg.selectFiscalStatus(paymentInformation[2]);
-            checkoutPg.enterFirstNameOnBill(passenger[0]);
-            checkoutPg.enterLastNameOnBill(passenger[1]);
-            checkoutPg.selectDocumentTypeOnBill(passenger[6]);
-            checkoutPg.enterDocumentNumberOnBill(passenger[7]);
-            checkoutPg.enterDocumentStateOnBill(passenger[4]);
-            checkoutPg.enterPassengerCityOnBill(passenger[5]+", "+passenger[4]+", "+passenger[3]);
-            checkoutPg.enterPassengerAddressOnBill(passenger[11]);
-            checkoutPg.checkTermsAndConditions();
-            purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
-        }catch(Exception e){
-            getErrorScreenshot(e.getLocalizedMessage());
-            e.printStackTrace();
-        }
-
-
+    public void testSetPassengerInformation() {
+        checkoutPg.enterFirstName(passenger[0]);
+        checkoutPg.enterLastName(passenger[1]);
+        checkoutPg.selectCountry(passenger[3]);
+        checkoutPg.enterNumberID(passenger[6], passenger[7]);
+        checkoutPg.selectDateOfBirth(passenger[12], passenger[13], passenger[14]);
+        checkoutPg.selectSex(passenger[2]);
+        checkoutPg.enterEmail(passenger[8]);
+        checkoutPg.enterEmailConfirmation(passenger[8]);
+        checkoutPg.selectNumberType(passenger[9]);
+        checkoutPg.selectPhoneCountry(passenger[3]);
+        checkoutPg.enterPhoneNumber(passenger[10]);
+        checkoutPg.selectPaymentType(paymentInformation[0]);
+        checkoutPg.selectBank(paymentInformation[1]);
+        checkoutPg.selectFiscalStatus(paymentInformation[2]);
+        checkoutPg.enterFirstNameOnBill(passenger[0]);
+        checkoutPg.enterLastNameOnBill(passenger[1]);
+        checkoutPg.selectDocumentTypeOnBill(passenger[6]);
+        checkoutPg.enterDocumentNumberOnBill(passenger[7]);
+        checkoutPg.enterDocumentStateOnBill(passenger[4]);
+        checkoutPg.enterPassengerCityOnBill(passenger[5] + ", " + passenger[4] + ", " + passenger[3]);
+        checkoutPg.enterPassengerAddressOnBill(passenger[11]);
+        checkoutPg.checkTermsAndConditions();
+        purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
     }
 
     @Then ("the passenger should be able to review the information provided before")
     public void testPurchaseDetailsVerification() {
-        try{
         Assert.assertTrue(purchaseDetailsPg.pageURLCheck());
-        }catch(Exception e){
-            getErrorScreenshot(e.getLocalizedMessage());
-            e.printStackTrace();
-        }
         driver.quit();
         //Assert.assertTrue(purchaseDetailsPg.headerTextCheck());
         // Assert.assertTrue(purchaseDetailsPg.bankEntityCheck(paymentInformation[1]));

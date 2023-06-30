@@ -9,5 +9,5 @@ import io.cucumber.testng.CucumberOptions;
         //plugin = {"pretty","html:target/cucumber-Report","jason;target/report.json"},
         tags = "@passengerInformation")
 public class TestRunner extends AbstractTestNGCucumberTests {
-
 }
+
