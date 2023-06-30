@@ -28,7 +28,7 @@ public class CheckoutPurchaseDetailsPage {
         wait.until(ExpectedConditions.elementToBeClickable(byElement));
     }
     public boolean pageURLCheck(){
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
         wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/checkout/purchase"));
         String currentURL = driver.getCurrentUrl();
         boolean b = currentURL.contains("https://www.despegar.com.co/checkout/purchase");

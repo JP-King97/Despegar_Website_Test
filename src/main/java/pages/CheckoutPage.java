@@ -19,8 +19,8 @@ public class CheckoutPage {
     private final By dayOfBirth = By.cssSelector("#traveler-birthday-day-0");
     private final By monthOfBirth = By.cssSelector("#traveler-birthday-month-0");
     private final By yearOfBirth = By.cssSelector("#traveler-birthday-year-0");
-    private final By femaleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(1)");
-    private final By maleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(2)");
+    private final By femaleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(1) ");
+    private final By maleCheckBox = By.cssSelector("#traveler-gender-0 > div > div > ul > li:nth-child(2) ");
     private final By emailBox = By.cssSelector("input[id=\"formData.contactData.mainEmailAddress\"]");
     private final By emailConfirmationBox = By.cssSelector("input[id=\"formData.contactData.repeatMainEmailAddress\"]");
     private final By phoneNumberType = By.cssSelector("select[id=\"formData.contactData.phones[0].type\"]");
@@ -40,6 +40,12 @@ public class CheckoutPage {
     public CheckoutPage(WebDriver driver){
         this.driver = driver;
         wait = new WebDriverWait(this.driver, Duration.ofSeconds(15));
+    }
+
+    private void scrollDown(By byElement){
+        WebElement webElement = driver.findElement(byElement);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", webElement);
     }
 
     public void waitToBeClickable(By byElement){
@@ -81,8 +87,7 @@ public class CheckoutPage {
 
     public void selectDateOfBirth(String day, String month, String year){
         if(elementExistCheck(dayOfBirth)){
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("window.scrollBy(0,400)","");
+            scrollDown(dayOfBirth);
             driver.findElement(dayOfBirth).sendKeys(day);
             driver.findElement(monthOfBirth).sendKeys(month);
             driver.findElement(yearOfBirth).sendKeys(year);
@@ -91,6 +96,7 @@ public class CheckoutPage {
 
     public void selectSex(String sex){
         if(elementExistCheck(maleCheckBox)){
+            scrollDown(maleCheckBox);
             switch(sex){
                 case "masculino", "Masculino" :
                     driver.findElement(maleCheckBox).click();
@@ -106,23 +112,21 @@ public class CheckoutPage {
     }
 
     public void enterEmail(String email){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,800)","");
+        scrollDown(emailBox);
         waitToBeClickable(emailBox);
         driver.findElement(emailBox).click();
         driver.findElement(emailBox).sendKeys(email);
     }
 
     public void enterEmailConfirmation(String confirmationEmail){
+        scrollDown(emailConfirmationBox);
         waitToBeClickable(emailConfirmationBox);
         driver.findElement(emailConfirmationBox).click();
         driver.findElement(emailConfirmationBox).sendKeys(confirmationEmail);
     }
 
     public void selectNumberType(String numberType){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)","");
-
+        scrollDown(phoneNumberType);
         waitToBeClickable(phoneNumberType);
         switch(numberType){
             case "Celular","celular":
@@ -147,8 +151,7 @@ public class CheckoutPage {
     }
 
     public void selectPaymentType(String paymentType){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)","");
+        scrollDown(By.cssSelector("payment-method-selector-radio-button-option:nth-child(3) > li > p > label > i"));
         String ID;
         waitToBeClickable(By.cssSelector("payment-method-selector-radio-button-option:nth-child(1) > li > p > label > i"));
         switch(paymentType){
@@ -205,15 +208,13 @@ public class CheckoutPage {
     }
 
     public void selectBank(String bank){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)","");
+        scrollDown(bankChoicesDropdown);
         waitToBeClickable(bankChoicesDropdown);
         driver.findElement(bankChoicesDropdown).sendKeys(bank+Keys.ENTER);
     }
 
     public void selectFiscalStatus(String fiscalStatus){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,800)","");
+        scrollDown(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(1) > label > span > i"));
         waitToBeClickable(By.cssSelector("div[id=\"formData.paymentData.cashPayments[0].invoice.fiscalStatus\"] > div > ul > li:nth-child(1) > label > span > i"));
         switch(fiscalStatus){
             case "natural","Natural":
@@ -271,8 +272,7 @@ public class CheckoutPage {
     }
 
     public void checkTermsAndConditions(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,800)","");
+        scrollDown(termAndConditionsCheckBox);
         waitToBeClickable(termAndConditionsCheckBox);
         driver.findElement(termAndConditionsCheckBox).click();
     }

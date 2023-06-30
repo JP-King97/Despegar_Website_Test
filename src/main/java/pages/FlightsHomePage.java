@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 
 public class FlightsHomePage {
     private WebDriver driver;
@@ -18,6 +19,9 @@ public class FlightsHomePage {
     private final By departureDateBox = By.cssSelector("input[placeholder=\"Ida\"]");
     private final By arrivalDateBox = By.cssSelector("input[placeholder=\"Vuelta\"]");
     private final By searchButton = By.cssSelector("div.sbox5-button-container--1X4O8 > button");
+    private final By googleLoginPopUp = By.cssSelector("div[id=\"credentials-picker-container\"]");
+    private final By googleLoginPopUpCloseButton = By.cssSelector("div#credentials-picker-container >div > div > svg ");
+    private final By googleLoginFrame = By.cssSelector("#credential_picker_container > iframe");
     private final WebDriverWait wait;
 
     public FlightsHomePage(WebDriver driver) {
@@ -210,5 +214,21 @@ public class FlightsHomePage {
                 throw new IllegalStateException("Unexciting Month: " + month);
         }
         return monthInfo;
+    }
+
+    public boolean checkGoogleLoginPopUp(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        List<WebElement> googlePopUP =  driver.findElements(googleLoginFrame);
+        return googlePopUP.size() != 0;
+    }
+
+    public void closeGoogleLoginPopUp(){
+        driver.switchTo().frame(driver.findElement(googleLoginFrame));
+        driver.findElement(googleLoginPopUpCloseButton).click();
+        driver.switchTo().parentFrame();
     }
 }

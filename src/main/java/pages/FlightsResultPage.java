@@ -35,14 +35,6 @@ public class FlightsResultPage {
     }
 
     public void closePopUpDiscount(){
-       // waitToBeClickable(popUpCloseButton);
-       // try {
-       //     var camera = (TakesScreenshot)driver;
-       //     File screenshot = camera.getScreenshotAs((OutputType.FILE));
-       //     Files.move(screenshot,new File("Screenshots\\popUp2.png"));
-       // } catch (IOException e) {
-       //     throw new RuntimeException(e);
-       // }
         waitToBeClickable(popUpCloseButton);
         driver.findElement(popUpCloseButton).click();
     }
@@ -65,18 +57,19 @@ public class FlightsResultPage {
         //
 
         waitToBeClickable(firstBuyButton);
-        scrollDown(300);
+        scrollDown(firstBuyButton);
         driver.findElement(firstBuyButton).sendKeys(Keys.ENTER);
         return new CheckoutPage(driver);
     }
 
-    private void scrollDown(int verticalScroll){
+    private void scrollDown(By byElement){
+        WebElement webElement = driver.findElement(byElement);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,"+verticalScroll+")","");
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", webElement);
     }
 
     public boolean urlCheck(){
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
         wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/shop/flights/results"));
         String currentURL = driver.getCurrentUrl();
         return currentURL.contains("https://www.despegar.com.co/shop/flights/results");
