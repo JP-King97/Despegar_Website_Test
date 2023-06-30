@@ -95,7 +95,7 @@ public class PurchaseTest {
                 ChromeOptions chromeOpt = new ChromeOptions();
                 chromeOpt.addArguments("--no-sandbox");
                 chromeOpt.addArguments("--disable-dev-shm-usage");
-                chromeOpt.addArguments("--window-size=1600,900");
+                chromeOpt.addArguments("--window-size=1920,1080");
                 chromeOpt.addArguments("--headless");
                 return driver = new ChromeDriver(chromeOpt);
 
