@@ -66,7 +66,7 @@ public class FlightsResultPage {
 
         waitToBeClickable(firstBuyButton);
         scrollDown(300);
-        driver.findElement(firstBuyButton).click();
+        driver.findElement(firstBuyButton).sendKeys(Keys.ENTER);
         return new CheckoutPage(driver);
     }
 
