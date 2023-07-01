@@ -29,7 +29,7 @@ public class BaseTest {
                 chromeOpt.addArguments("--no-sandbox");
                 chromeOpt.addArguments("--disable-dev-shm-usage");
                 chromeOpt.addArguments("--window-size=1920,1080");
-                chromeOpt.addArguments("--headless");
+               // chromeOpt.addArguments("--headless");
                 return driver = new ChromeDriver(chromeOpt);
 
             case "edge","Edge":
@@ -59,7 +59,7 @@ public class BaseTest {
     public void setUp(){
         driver = webDriverSelector("chrome");
         driver.manage().window().maximize();
-        driver.get("https://www.despegar.com.co"); //here goes the website URL
+        driver.get("https://www.despegar.com.co/"); //here goes the website URL
         homePage = new HomePage(driver);
     }
 

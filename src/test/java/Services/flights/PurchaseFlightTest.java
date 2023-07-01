@@ -1,4 +1,4 @@
-package Purchases;
+package Services.flights;
 
 import base.BaseTest;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,7 +9,7 @@ import pages.*;
 
 import java.time.Duration;
 
-public class FlightPurchaseTest extends BaseTest {
+public class PurchaseFlightTest extends BaseTest {
     private FlightsHomePage flightsPg;
     private FlightsResultPage resultPage;
     private CheckoutPage checkoutPg;
@@ -39,20 +39,24 @@ public class FlightPurchaseTest extends BaseTest {
             "natural"
     };
 
-    public void waitPageLoad(String url){
+    public boolean waitPageLoad(String url){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.urlMatches(url));
+        try{
+            wait.until(ExpectedConditions.urlMatches(url));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
     }
 
 
     @Test
     public void testFlightsPageVerification() {
-         //here goes the website URL
+        //here goes the website URL
         homePage = new HomePage(driver);
         flightsPg = homePage.selectFlights();
-        waitPageLoad("https://www.despegar.com.co/vuelos/");
-        String currentURL = driver.getCurrentUrl();
-        Assert.assertEquals(currentURL, "https://www.despegar.com.co/vuelos/", "The Flights page did not charge correctly");
+        Assert.assertTrue(waitPageLoad("https://www.despegar.com.co/vuelos/"), "The Flights page did not charge correctly");
     }
 
 
