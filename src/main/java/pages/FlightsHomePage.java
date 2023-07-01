@@ -13,7 +13,9 @@ import java.util.List;
 
 public class FlightsHomePage {
     private WebDriver driver;
-    private final By roundTrip = By.cssSelector("button[class=\"sbox5-3-btn-ghost -lighten rt-sbox5 sbox5-button -white -active -md\"]");
+    private final By roundTrip = By.cssSelector("div.sbox5-tab-switch--3So9m > div:nth-child(1)  > button");
+    private final By oneWayTrip = By.cssSelector("div.sbox5-tab-switch--3So9m > div:nth-child(2)  > button");
+    private final By multiDestinationTrip = By.cssSelector("div.sbox5-tab-switch--3So9m > div:nth-child(3)  > button");
     private final By departureLocation = By.cssSelector("input[placeholder=\"Ingresa desde dónde viajas\"]");
     private final By arrivalLocation = By.cssSelector("input[placeholder=\"Ingresa hacia dónde viajas\"]");
     private final By departureDateBox = By.cssSelector("input[placeholder=\"Ida\"]");
@@ -37,9 +39,14 @@ public class FlightsHomePage {
         waitToBeClickable(typeOfFlight);
         driver.findElement(typeOfFlight);
     }
-
     public void selectRoundTrips(){
         getTypeOfFlights(roundTrip);
+    }
+    public void selectOneWayTrips(){
+        getTypeOfFlights(oneWayTrip);
+    }
+    public void selectMultipleDestinationTrips(){
+        getTypeOfFlights(multiDestinationTrip);
     }
 
     public void closeLoginPopUp(){

@@ -19,17 +19,17 @@ public class PurchaseFlightTest extends BaseTest {
     private final String desireDepartureCity = "Medellín";
     private final String desireArrivalCity = "Cali";
     private String[] passenger = {
-            "Daniel",
-            "Moreno",
+            "yurdanel",
+            "Moare",
             "masculino",
             "Colombia",
             "Antioquia",
             "Envigado",
             "Cédula de ciudadanía",
-            "1028658686",
-            "despegar_Selenium_test1_Java@gmail.com",
+            "1029758686",
+            "despegar_Selenium_test_Java_4897@gmail.com",
             "Celular",
-            "3196997242",
+            "3196918242",
             "Cra 34 #28-31",
             "3","6","1987"};
 
@@ -39,7 +39,14 @@ public class PurchaseFlightTest extends BaseTest {
             "natural"
     };
 
-    public boolean waitPageLoad(String url){
+    @Test
+    public void testFlightsPageVerification() {
+        //here goes the website URL
+        homePage = new HomePage(driver);
+        flightsPg = homePage.selectFlights();
+        Assert.assertTrue(waitPageLoad("https://www.despegar.com.co/vuelos/"), "The Flights page did not charge correctly");
+    }
+    private boolean waitPageLoad(String url){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         try{
             wait.until(ExpectedConditions.urlMatches(url));
@@ -51,62 +58,91 @@ public class PurchaseFlightTest extends BaseTest {
     }
 
 
-    @Test
-    public void testFlightsPageVerification() {
-        //here goes the website URL
-        homePage = new HomePage(driver);
-        flightsPg = homePage.selectFlights();
-        Assert.assertTrue(waitPageLoad("https://www.despegar.com.co/vuelos/"), "The Flights page did not charge correctly");
-    }
-
-
     @Test(dependsOnMethods = "testFlightsPageVerification")
     public void testSetFlightDatesAndLocations(){
-        if(flightsPg.checkGoogleLoginPopUp()){
-            flightsPg.closeGoogleLoginPopUp();
-        }else{
-            flightsPg.closeLoginPopUp();
-        }
-        flightsPg.selectRoundTrips();
+        closePopUps();
+        selectTypeOfFlight("RoundTrip");
         //Enter the flight dates and locations
         flightsPg.selectDepartureDate(depDate[0],depDate[1],depDate[2]);
-        String selectedDepDate = flightsPg.getDepartureDate();
-        String desiredDepDate = flightsPg.getDesiredDepDate(depDate[0],depDate[1],depDate[2]);
-        Assert.assertTrue(selectedDepDate.contains(desiredDepDate),"Departure date is different");
+        Assert.assertTrue(checkDepartureDate(),"Departure date is different");
         flightsPg.selectArrivalDate(arrDate[0],arrDate[1],arrDate[2]);
-        String selectedArrDate = flightsPg.getArrivalDate();
-        String desiredArrDat = flightsPg.getDesiredArrDate(arrDate[0],arrDate[1],arrDate[2]);
-        Assert.assertTrue(selectedArrDate.contains(desiredArrDat),"Arrival date is different");
+        Assert.assertTrue(checkArrivalDate(),"Arrival date is different");
         flightsPg.enterDepartureLocation(desireDepartureCity);
         Assert.assertTrue((flightsPg.getSelectedDepartureLocation()).contains(desireDepartureCity),"Departure location is different");
         flightsPg.enterArrivalLocation(desireArrivalCity);
         Assert.assertTrue((flightsPg.getSelectedArrivalLocation()).contains(desireArrivalCity),"Arrival location is different");
         //Summit the flights dates and locations
         resultPage = flightsPg.summitSearchInformation();
-        Assert.assertTrue(resultPage.urlCheck());
+
+    }
+    private void closePopUps(){
+        if(flightsPg.checkGoogleLoginPopUp()){
+            flightsPg.closeGoogleLoginPopUp();
+        }else{
+            flightsPg.closeLoginPopUp();
+        }
+    }
+    private void selectTypeOfFlight(String flightType){
+        switch (flightType) {
+            case "RoundTrip" -> flightsPg.selectRoundTrips();
+            case "OneWayTrip" -> flightsPg.selectOneWayTrips();
+            case "MultipleDestinationTrip" -> flightsPg.selectMultipleDestinationTrips();
+        }
+    }
+    private boolean checkDepartureDate(){
+        String selectedDepDate = flightsPg.getDepartureDate();
+        String desiredDepDate = flightsPg.getDesiredDepDate(depDate[0],depDate[1],depDate[2]);
+        return selectedDepDate.contains(desiredDepDate);
+    }
+    private boolean checkArrivalDate(){
+        String selectedArrDate = flightsPg.getArrivalDate();
+        String desiredArrDat = flightsPg.getDesiredArrDate(arrDate[0],arrDate[1],arrDate[2]);
+        return selectedArrDate.contains(desiredArrDat);
     }
 
     @Test(dependsOnMethods = "testSetFlightDatesAndLocations")
     public void testSelectFirstFlightResult() {
+        Assert.assertTrue(resultPage.urlCheck());
         resultPage.closePopUpDiscount();
         checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
-        Assert.assertTrue(checkoutPg.urlCheck());
     }
 
     @Test(dependsOnMethods = "testSelectFirstFlightResult")
-    public void setPassengerInformation() {
+    public void setPurchaseInformation() {
+        Assert.assertTrue(checkoutPg.urlCheck());
+        setPassengersInformation();
+        setEmailsForVouchers();
+        setContactInformation();
+        checkoutPg.selectPaymentType(paymentInformation[0]);
+        setPaymentInformation(paymentInformation[0]);
+        checkoutPg.checkTermsAndConditions();
+        purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
+    }
+    private void setPassengersInformation(){
         checkoutPg.enterFirstName(passenger[0]);
         checkoutPg.enterLastName(passenger[1]);
         checkoutPg.selectCountry(passenger[3]);
         checkoutPg.enterNumberID(passenger[6], passenger[7]);
         checkoutPg.selectDateOfBirth(passenger[12], passenger[13], passenger[14]);
         checkoutPg.selectSex(passenger[2]);
+    }
+    private void setEmailsForVouchers(){
         checkoutPg.enterEmail(passenger[8]);
         checkoutPg.enterEmailConfirmation(passenger[8]);
+    }
+    private void setContactInformation(){
         checkoutPg.selectNumberType(passenger[9]);
         checkoutPg.selectPhoneCountry(passenger[3]);
         checkoutPg.enterPhoneNumber(passenger[10]);
-        checkoutPg.selectPaymentType(paymentInformation[0]);
+    }
+    private void setPaymentInformation(String paymentMethod){
+        switch (paymentMethod){
+            case "PSE":
+                setPayInfoPSE();
+                break;
+        }
+    }
+    private void setPayInfoPSE(){
         checkoutPg.selectBank(paymentInformation[1]);
         checkoutPg.selectFiscalStatus(paymentInformation[2]);
         checkoutPg.enterFirstNameOnBill(passenger[0]);
@@ -116,11 +152,9 @@ public class PurchaseFlightTest extends BaseTest {
         checkoutPg.enterDocumentStateOnBill(passenger[4]);
         checkoutPg.enterPassengerCityOnBill(passenger[5] + ", " + passenger[4] + ", " + passenger[3]);
         checkoutPg.enterPassengerAddressOnBill(passenger[11]);
-        checkoutPg.checkTermsAndConditions();
-        purchaseDetailsPg = checkoutPg.pressNoAssistanceButton();
     }
 
-    @Test(dependsOnMethods = "setPassengerInformation")
+    @Test(dependsOnMethods = "setPurchaseInformation")
     public void purchaseDetailsVerification() {
         Assert.assertTrue(purchaseDetailsPg.pageURLCheck());
         //Assert.assertTrue(purchaseDetailsPg.headerTextCheck());
