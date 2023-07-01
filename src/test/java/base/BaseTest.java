@@ -29,7 +29,7 @@ public class BaseTest {
                 chromeOpt.addArguments("--no-sandbox");
                 chromeOpt.addArguments("--disable-dev-shm-usage");
                 chromeOpt.addArguments("--window-size=1920,1080");
-               // chromeOpt.addArguments("--headless");
+                chromeOpt.addArguments("--headless");
                 return driver = new ChromeDriver(chromeOpt);
 
             case "edge","Edge":
