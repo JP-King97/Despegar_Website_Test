@@ -69,9 +69,9 @@ public class FlightsResultPage {
     }
 
     public boolean urlCheck(){
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(40));
         try{
-            wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/shop/flights/results"));
+            wait.until(ExpectedConditions.urlContains("https://www.despegar.com.co/shop/flights/results/"));
             return true;
         }catch(Exception e){
             System.out.println(e);

@@ -58,7 +58,7 @@ public class BaseTest {
     @BeforeClass
     public void setUp(){
         driver = webDriverSelector("chrome");
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get("https://www.despegar.com.co/"); //here goes the website URL
         homePage = new HomePage(driver);
     }
