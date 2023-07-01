@@ -27,23 +27,6 @@
       <artifactId>selenium-support</artifactId>
       <version>4.10.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.seleniumhq.selenium</groupId>
-      <artifactId>selenium-opera-driver</artifactId>
-      <version>4.4.0</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-      <version>7.12.1</version>
-    </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-testng</artifactId>
-      <version>7.12.1</version>
-    </dependency>
 
     <dependency>
       <groupId>org.testng</groupId>
@@ -59,5 +42,6 @@
       <version>5.3.3</version>
     </dependency>
   </dependencies>
+
 
 </project>

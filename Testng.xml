@@ -1,0 +1,8 @@
+<suite name="PurchaseFlightTicket">
+    <test name="PurchaseFlightTest">
+        <classes>
+            <class name="Purchases.FlightPurchaseTest"/>
+            <!-- Add more classes if needed -->
+        </classes>
+    </test>
+</suite>
