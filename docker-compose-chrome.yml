@@ -10,7 +10,7 @@ services:
     privileged: true
     shm_size: 2gb
     ports:
-      - "4441:4444"
+      - "4444:4444"
       - "7901:7900"
 
   edge:
@@ -19,7 +19,7 @@ services:
     privileged: true
     shm_size: 2gb
     ports:
-      - "4442:4444"
+      - "4444:4444"
       - "7902:7900"
 
   firefox:
@@ -28,17 +28,19 @@ services:
     privileged: true
     shm_size: 2gb
     ports:
-      - "4443:4444"
+      - "4444:4444"
       - "7903:7900"
 
 
 
- # Despegar_Website_Chrome_Test:
- #   container_name: Despegar_Website_Chrome_Test_container
- #   build:
- #     context: .
- #     dockerfile: Dockerfile
- #   image: "despegar_website_chrome_test"
- #   depends_on:
- #     - chrome
+  Despegar_Website_Chrome_Test:
+    container_name: Despegar_Website_Chrome_Test_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "despegar_website_chrome_test"
+    depends_on:
+      - chrome
+      - edge
+      - firefox
 

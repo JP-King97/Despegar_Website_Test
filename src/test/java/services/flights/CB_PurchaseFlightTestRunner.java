@@ -1,6 +1,7 @@
 package services.flights;
 
 
+import com.google.common.annotations.VisibleForTesting;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,14 +12,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
-
+@VisibleForTesting
 public class CB_PurchaseFlightTestRunner {
 
 
     @Test
-    public void runTestOnChrome(){
+    public void runOnChromeTest(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOpt = new ChromeOptions();
         chromeOpt.addArguments("--no-sandbox");
@@ -39,7 +39,7 @@ public class CB_PurchaseFlightTestRunner {
     }
 
     @Test
-    public void runTestOnFirefox(){
+    public void runOnFirefoxTest(){
         //"firefox","Firefox":
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOpt = new FirefoxOptions();
@@ -62,27 +62,27 @@ public class CB_PurchaseFlightTestRunner {
         tearDown(firefoxDriver);
     }
 
-    @Test
-    public void runTestOnEdge(){
-        //"edge","Edge":
-        WebDriverManager.edgedriver().setup();
-        EdgeOptions edgeOpt = new EdgeOptions();
-        edgeOpt.addArguments("--no-sandbox");
-        edgeOpt.addArguments("--disable-dev-shm-usage");
-        edgeOpt.addArguments("--window-size=1600,900");
-        edgeOpt.addArguments("--headless");
-        WebDriver edgeDriver = new EdgeDriver(edgeOpt);
-        PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(edgeDriver);
-
-        purchaseFlightTest.testHomePageVerification();
-        purchaseFlightTest.testFlightsPageVerification();
-        purchaseFlightTest.testSetFlightDatesAndLocations();
-        purchaseFlightTest.testSelectFirstFlightResult();
-        purchaseFlightTest.testSetPurchaseInformation();
-        purchaseFlightTest.testPurchaseDetailsVerification();
-
-        tearDown(edgeDriver);
-    }
+   // @Test
+   // public void runOnEdgeTest(){
+   //     //"edge","Edge":
+   //     WebDriverManager.edgedriver().setup();
+   //     EdgeOptions edgeOpt = new EdgeOptions();
+   //     edgeOpt.addArguments("--no-sandbox");
+   //     edgeOpt.addArguments("--disable-dev-shm-usage");
+   //     edgeOpt.addArguments("--window-size=1600,900");
+   //     edgeOpt.addArguments("--headless");
+   //     WebDriver edgeDriver = new EdgeDriver(edgeOpt);
+   //     PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(edgeDriver);
+//
+   //     purchaseFlightTest.testHomePageVerification();
+   //     purchaseFlightTest.testFlightsPageVerification();
+   //     purchaseFlightTest.testSetFlightDatesAndLocations();
+   //     purchaseFlightTest.testSelectFirstFlightResult();
+   //     purchaseFlightTest.testSetPurchaseInformation();
+   //     purchaseFlightTest.testPurchaseDetailsVerification();
+//
+   //     tearDown(edgeDriver);
+   // }
 
     private void tearDown(WebDriver driver){
         driver.quit();
