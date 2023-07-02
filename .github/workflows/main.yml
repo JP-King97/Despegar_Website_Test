@@ -18,5 +18,7 @@ jobs:
           java-version: 17
       - name: Install Google Chrome
         uses: browser-actions/setup-chrome@v1
+      - name: Build the project
+        run: mvn -B package --file pom.xml
       - name: Test with Maven
-        run: mvn clean test -Dsurefire.suiteXmlFiles="Testng.xml"
+        run: mvn exec:java -Dexec.mainClass="Testng.xml"
