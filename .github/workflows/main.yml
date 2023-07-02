@@ -20,7 +20,5 @@ jobs:
         uses: browser-actions/setup-chrome@v1
       - name: Install Firefox
         uses: browser-actions/setup-firefox@v1
-      - name: Build the project
-        run: mvn clean install
       - name: Test with Maven
         run: mvn clean test
