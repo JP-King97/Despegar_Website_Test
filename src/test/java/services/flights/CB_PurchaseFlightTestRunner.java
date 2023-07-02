@@ -46,7 +46,7 @@ public class CB_PurchaseFlightTestRunner {
         FirefoxProfile profile = new FirefoxProfile();
         firefoxOpt.addArguments("--no-sandbox");
         firefoxOpt.addArguments("--disable-dev-shm-usage");
-        firefoxOpt.addArguments("--window-size=1600,900");
+        firefoxOpt.addArguments("--window-size=1920,1080");
         firefoxOpt.setProfile(profile);
         firefoxOpt.addArguments("--headless");
         WebDriver firefoxDriver = new FirefoxDriver(firefoxOpt);
@@ -69,7 +69,7 @@ public class CB_PurchaseFlightTestRunner {
    //     EdgeOptions edgeOpt = new EdgeOptions();
    //     edgeOpt.addArguments("--no-sandbox");
    //     edgeOpt.addArguments("--disable-dev-shm-usage");
-   //     edgeOpt.addArguments("--window-size=1600,900");
+   //     edgeOpt.addArguments("--window-size=1920,1080");
    //     edgeOpt.addArguments("--headless");
    //     WebDriver edgeDriver = new EdgeDriver(edgeOpt);
    //     PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(edgeDriver);
