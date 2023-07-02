@@ -1,8 +1,8 @@
-<suite name="PurchaseFlightTicket">
-    <test name="PurchaseFlightTest">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name = "Parallel Testing Suite" parallel = "methods">
+    <test name = "Parallel Purchase Flight Tests" >
         <classes>
-            <class name="Purchases.FlightPurchaseTest"/>
-            <!-- Add more classes if needed -->
+            <class name = "services.flights.CB_PurchaseFlightTestRunner" />
         </classes>
     </test>
 </suite>

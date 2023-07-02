@@ -81,11 +81,12 @@ public class FlightsHomePage {
     public void enterArrivalLocation(String arrivalLocationName){
         waitToBeClickable(arrivalLocation);
         driver.findElement(arrivalLocation).click();
+        driver.findElement(arrivalLocation).click();
         driver.findElement(arrivalLocation).sendKeys(Keys.CONTROL+"a");
         driver.findElement(arrivalLocation).sendKeys(Keys.BACK_SPACE);
         driver.findElement(arrivalLocation).sendKeys(arrivalLocationName);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

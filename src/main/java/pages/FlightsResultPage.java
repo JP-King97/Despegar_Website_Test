@@ -43,16 +43,11 @@ public class FlightsResultPage {
         //
         // aitToBeClickable(firstBuyButton);
         //
-        // ry {
-        //
+        // try {
         //   var camera = (TakesScreenshot)driver;
-        //
         //   File screenshot = camera.getScreenshotAs((OutputType.FILE));
-        //
         //   Files.move(screenshot,new File("Screenshots\\FirstBuyButton.png"));
-        //
         // catch (IOException e) {
-        //
         //   throw new RuntimeException(e);
         //
 
