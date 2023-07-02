@@ -46,9 +46,9 @@ public class CB_PurchaseFlightTestRunner {
         FirefoxProfile profile = new FirefoxProfile();
         firefoxOpt.addArguments("--no-sandbox");
         firefoxOpt.addArguments("--disable-dev-shm-usage");
-        firefoxOpt.addArguments("--window-size=1920,1080");
+        firefoxOpt.addArguments("--window-size=2600,1200");
         firefoxOpt.setProfile(profile);
-        firefoxOpt.addArguments("--headless");
+        //firefoxOpt.addArguments("--headless");
         WebDriver firefoxDriver = new FirefoxDriver(firefoxOpt);
         PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(firefoxDriver);
 
