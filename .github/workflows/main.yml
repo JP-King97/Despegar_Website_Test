@@ -19,6 +19,6 @@ jobs:
       - name: Install Google Chrome
         uses: browser-actions/setup-chrome@v1
       - name: Build the project
-        run: mvn -B package --file pom.xml
+        run: mvn clean install
       - name: Test with Maven
         run: mvn clean test -Dsurefire.suiteXmlFiles="Testng.xml"
