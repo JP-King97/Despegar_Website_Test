@@ -25,7 +25,7 @@ public class FlightsResultPage {
             flightsResultPage = iterate.next();
         }
         this.driver=driver.switchTo().window(flightsResultPage);
-        wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
+        wait = new WebDriverWait(this.driver, Duration.ofSeconds(60));
 
     }
 
@@ -34,7 +34,14 @@ public class FlightsResultPage {
         wait.until(ExpectedConditions.elementToBeClickable(byElement));
     }
 
-    public void closePopUpDiscount(){
+    public void closePopUpDiscount() {
+        try {
+            var camera = (TakesScreenshot) driver;
+            File screenshot = camera.getScreenshotAs((OutputType.FILE));
+            Files.move(screenshot, new File("Screenshots\\FirstBuyButton2.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         waitToBeClickable(popUpCloseButton);
         driver.findElement(popUpCloseButton).click();
     }

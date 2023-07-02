@@ -125,13 +125,6 @@ public class PurchaseFlightTest {
 
     //@Test(dependsOnMethods = "testSetFlightDatesAndLocations")
     public void testSelectFirstFlightResult() {
-        try {
-            var camera = (TakesScreenshot) driver;
-            File screenshot = camera.getScreenshotAs((OutputType.FILE));
-            Files.move(screenshot, new File("Screenshots\\FirstBuyButton.png"));
-        }catch(IOException e){
-            throw new RuntimeException(e);
-            }
         Assert.assertTrue(resultPage.urlCheck());
         resultPage.closePopUpDiscount();
         checkoutPg = resultPage.clickFirstBuyButton();//Despues de esto puede aparecer un modal del equipaje
