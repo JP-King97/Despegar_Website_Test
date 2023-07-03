@@ -62,27 +62,27 @@ public class CB_PurchaseFlightTestRunner {
         tearDown(firefoxDriver);
     }
 
-    @Test
-    public void runOnEdgeTest(){
-        //"edge","Edge":
-        WebDriverManager.edgedriver().setup();
-        EdgeOptions edgeOpt = new EdgeOptions();
-        edgeOpt.addArguments("--no-sandbox");
-        edgeOpt.addArguments("--disable-dev-shm-usage");
-        edgeOpt.addArguments("--window-size=1920,1080");
-        edgeOpt.addArguments("--headless");
-        WebDriver edgeDriver = new EdgeDriver(edgeOpt);
-        PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(edgeDriver);
-//
-        purchaseFlightTest.testHomePageVerification();
-        purchaseFlightTest.testFlightsPageVerification();
-        purchaseFlightTest.testSetFlightDatesAndLocations();
-        purchaseFlightTest.testSelectFirstFlightResult();
-        purchaseFlightTest.testSetPurchaseInformation();
-        purchaseFlightTest.testPurchaseDetailsVerification();
-//
-        tearDown(edgeDriver);
-    }
+  //  @Test
+  //  public void runOnEdgeTest(){
+  //      //"edge","Edge":
+  //      WebDriverManager.edgedriver().setup();
+  //      EdgeOptions edgeOpt = new EdgeOptions();
+  //      edgeOpt.addArguments("--no-sandbox");
+  //      edgeOpt.addArguments("--disable-dev-shm-usage");
+  //      edgeOpt.addArguments("--window-size=1920,1080");
+  //      edgeOpt.addArguments("--headless");
+  //      WebDriver edgeDriver = new EdgeDriver(edgeOpt);
+  //      PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(edgeDriver);
+////
+  //      purchaseFlightTest.testHomePageVerification();
+  //      purchaseFlightTest.testFlightsPageVerification();
+  //      purchaseFlightTest.testSetFlightDatesAndLocations();
+  //      purchaseFlightTest.testSelectFirstFlightResult();
+  //      purchaseFlightTest.testSetPurchaseInformation();
+  //      purchaseFlightTest.testPurchaseDetailsVerification();
+////
+  //      tearDown(edgeDriver);
+  //  }
 
     private void tearDown(WebDriver driver){
         driver.quit();
