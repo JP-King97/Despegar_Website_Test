@@ -1,6 +1,7 @@
 package services.flights;
 
 import com.google.common.io.Files;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -54,7 +55,7 @@ public class PurchaseFlightTest {
     //@Test
     public void testHomePageVerification(){
         driver.get("https://www.despegar.com.co/"); //here goes the website URL
-        //driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920,1080));
         homePage = new HomePage(driver);
     }
 
