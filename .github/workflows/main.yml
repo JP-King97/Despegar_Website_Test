@@ -10,6 +10,13 @@ jobs:
   run_purchase_flight_test:
     runs-on: windows-latest
     steps:
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+         ref: gh-pages
+         path: gh-pages
       - uses: actions/checkout@v2
       - name: Set up JDK 17
         uses: actions/setup-java@v1
