@@ -54,7 +54,7 @@ public class PurchaseFlightTest {
     //@Test
     public void testHomePageVerification(){
         driver.get("https://www.despegar.com.co/"); //here goes the website URL
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         homePage = new HomePage(driver);
     }
 
