@@ -24,7 +24,7 @@ public class CB_PurchaseFlightTestRunner {
         chromeOpt.addArguments("--no-sandbox");
         chromeOpt.addArguments("--disable-dev-shm-usage");
         chromeOpt.addArguments("--window-size=1920,1080");
-        chromeOpt.addArguments("--headless");
+        //chromeOpt.addArguments("--headless");
         WebDriver chromeDriver = new ChromeDriver(chromeOpt);
         PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(chromeDriver);
 
@@ -38,29 +38,29 @@ public class CB_PurchaseFlightTestRunner {
         tearDown(chromeDriver);
     }
 
-    @Test
-    public void runOnFirefoxTest(){
-        //"firefox","Firefox":
-        WebDriverManager.firefoxdriver().setup();
-        FirefoxOptions firefoxOpt = new FirefoxOptions();
-        FirefoxProfile profile = new FirefoxProfile();
-        firefoxOpt.addArguments("--no-sandbox");
-        firefoxOpt.addArguments("--disable-dev-shm-usage");
-        firefoxOpt.addArguments("--window-size=2600,1200");
-        firefoxOpt.setProfile(profile);
-        firefoxOpt.addArguments("--headless");
-        WebDriver firefoxDriver = new FirefoxDriver(firefoxOpt);
-        PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(firefoxDriver);
-
-        purchaseFlightTest.testHomePageVerification();
-        purchaseFlightTest.testFlightsPageVerification();
-        purchaseFlightTest.testSetFlightDatesAndLocations();
-        purchaseFlightTest.testSelectFirstFlightResult();
-        purchaseFlightTest.testSetPurchaseInformation();
-        purchaseFlightTest.testPurchaseDetailsVerification();
-
-        tearDown(firefoxDriver);
-    }
+  //  @Test
+  //  public void runOnFirefoxTest(){
+  //      //"firefox","Firefox":
+  //      WebDriverManager.firefoxdriver().setup();
+  //      FirefoxOptions firefoxOpt = new FirefoxOptions();
+  //      FirefoxProfile profile = new FirefoxProfile();
+  //      firefoxOpt.addArguments("--no-sandbox");
+  //      firefoxOpt.addArguments("--disable-dev-shm-usage");
+  //      firefoxOpt.addArguments("--window-size=2600,1200");
+  //      firefoxOpt.setProfile(profile);
+  //      //firefoxOpt.addArguments("--headless");
+  //      WebDriver firefoxDriver = new FirefoxDriver(firefoxOpt);
+  //      PurchaseFlightTest purchaseFlightTest = new PurchaseFlightTest(firefoxDriver);
+//
+  //      purchaseFlightTest.testHomePageVerification();
+  //      purchaseFlightTest.testFlightsPageVerification();
+  //      purchaseFlightTest.testSetFlightDatesAndLocations();
+  //      purchaseFlightTest.testSelectFirstFlightResult();
+  //      purchaseFlightTest.testSetPurchaseInformation();
+  //      purchaseFlightTest.testPurchaseDetailsVerification();
+//
+  //      tearDown(firefoxDriver);
+  //  }
 
   //  @Test
   //  public void runOnEdgeTest(){

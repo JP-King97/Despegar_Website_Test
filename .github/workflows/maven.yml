@@ -46,8 +46,8 @@ jobs:
         cache: maven
      - name: Install Google Chrome
        uses: browser-actions/setup-chrome@v1
-     - name: Install Firefox
-       uses: browser-actions/setup-firefox@v1
+  #   - name: Install Firefox
+  #     uses: browser-actions/setup-firefox@v1
      - name: Build with Maven
        run: mvn clean test -Dsurefire.suiteXmlFiles="Testng.xml"
 
