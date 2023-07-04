@@ -8,7 +8,7 @@ on:
 jobs:
 
   run_purchase_flight_test:
-    runs-on: windows-latest
+    runs-on: Ubuntu-latest
     steps:
       - name: Get Allure history
         uses: actions/checkout@v2
