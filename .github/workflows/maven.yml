@@ -11,45 +11,43 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+
 
 jobs:
-  allure:
-    name: Generate Allure Report
+  purchase_flight_test:
+ #   name: Generate Allure Report
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+     - uses: actions/checkout@v3
 
-    - name: Get Allure history
-      uses: actions/checkout@v3
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
+ #   - name: Get Allure history
+ #     uses: actions/checkout@v3
+ #     if: always()
+ #     continue-on-error: true
+ #     with:
+ #       ref: gh-pages
+ #       path: gh-pages
 
-    - name: Allure Report action from marketplace
-      uses: simple-elf/allure-report-action@master
-      if: always()
-      #id: allure-report
-      with:
-        allure_results: allure-results
-        #gh_pages: gh-pages
-        #allure_report: allure-report
-        allure_history: allure-history
-        keep_reports: 20
-
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
+ #   - name: Allure Report action from marketplace
+ #     uses: simple-elf/allure-report-action@master
+ #     if: always()
+ #     #id: allure-report
+ #     with:
+ #       allure_results: allure-results
+ #       #gh_pages: gh-pages
+ #       #allure_report: allure-report
+ #       allure_history: allure-history
+ #       keep_reports: 20
+     - name: Set up JDK 11
+       uses: actions/setup-java@v3
+       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Install Google Chrome
-      uses: browser-actions/setup-chrome@v1
-    - name: Install Firefox
-      uses: browser-actions/setup-firefox@v1
-    - name: Build with Maven
-      run: mvn clean test -Dsurefire.suiteXmlFiles="Testng.xml"
+     - name: Install Google Chrome
+       uses: browser-actions/setup-chrome@v1
+     - name: Install Firefox
+       uses: browser-actions/setup-firefox@v1
+     - name: Build with Maven
+       run: mvn clean test -Dsurefire.suiteXmlFiles="Testng.xml"
 
