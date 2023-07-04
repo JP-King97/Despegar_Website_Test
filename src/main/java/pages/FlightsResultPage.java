@@ -44,6 +44,7 @@ public class FlightsResultPage {
         }
         waitToBeClickable(popUpCloseButton);
         driver.findElement(popUpCloseButton).click();
+        driver.findElement(popUpCloseButton).click();
     }
 
     public CheckoutPage clickFirstBuyButton(){
