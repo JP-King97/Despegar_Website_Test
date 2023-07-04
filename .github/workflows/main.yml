@@ -28,6 +28,8 @@ jobs:
       - name: Install Firefox
         uses: browser-actions/setup-firefox@v1
       - name: Install Edge
+        with:
+          edge-version: latest
         uses: browser-actions/setup-edge@v1
       - name: Test with Maven
         run: mvn clean test -Dsurefire.suiteXmlFiles="Testng.xml"
